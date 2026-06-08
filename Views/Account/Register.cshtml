@@ -1,0 +1,58 @@
+@model E_Commerce.Models.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="auth-page">
+    <div class="auth-card" style="max-width:500px;">
+        <div class="auth-header">
+            <h2><i class="fas fa-bolt" style="color:#6C63FF;"></i> Create Account</h2>
+            <p>Join ShopZone and start shopping today</p>
+        </div>
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label">Full Name</label>
+                <input asp-for="FullName" class="form-control" placeholder="Enter your full name" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email Address</label>
+                <input asp-for="Email" class="form-control" placeholder="you@example.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" class="form-control" placeholder="Min 6 characters" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Repeat password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label">Address <small class="text-muted">(optional)</small></label>
+                <input asp-for="Address" class="form-control" placeholder="Street address" />
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="City" class="form-label">City <small class="text-muted">(optional)</small></label>
+                    <input asp-for="City" class="form-control" placeholder="City" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PostalCode" class="form-label">Postal Code <small class="text-muted">(optional)</small></label>
+                    <input asp-for="PostalCode" class="form-control" placeholder="Postal code" />
+                </div>
+            </div>
+            <button type="submit" class="btn-auth mt-2"><i class="fas fa-user-plus"></i> Create Account</button>
+        </form>
+        <div class="text-center mt-4">
+            <p style="color:#636e72;font-size:0.9rem;">
+                Already have an account? <a href="@Url.Action("Login")" style="color:#6C63FF;font-weight:600;text-decoration:none;">Sign In</a>
+            </p>
+        </div>
+    </div>
+</div>

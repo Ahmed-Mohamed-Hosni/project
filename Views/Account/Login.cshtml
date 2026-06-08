@@ -1,0 +1,40 @@
+@model E_Commerce.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2><i class="fas fa-bolt" style="color:#6C63FF;"></i> Welcome Back</h2>
+            <p>Sign in to your ShopZone account</p>
+        </div>
+        <form asp-action="Login" method="post">
+            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email Address</label>
+                <input asp-for="Email" class="form-control" placeholder="you@example.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-4 form-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label" style="font-size:0.9rem;">Remember me</label>
+            </div>
+            <button type="submit" class="btn-auth"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+        </form>
+        <div class="text-center mt-4">
+            <p style="color:#636e72;font-size:0.9rem;">
+                Don't have an account? <a href="@Url.Action("Register")" style="color:#6C63FF;font-weight:600;text-decoration:none;">Create Account</a>
+            </p>
+        </div>
+        <div class="text-center mt-2" style="font-size:0.8rem;color:#b2bec3;">
+            <p>Admin Login: admin@ecommerce.com / Admin@123</p>
+        </div>
+    </div>
+</div>
