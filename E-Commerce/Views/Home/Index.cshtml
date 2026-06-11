@@ -1,0 +1,156 @@
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Home";
+    var categories = (List<Category>)ViewBag.Categories;
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="hero-content">
+                    <h1>Discover The <br /><span class="text-gradient">Latest Trends</span></h1>
+                    <p>Shop premium products at unbeatable prices. From electronics to fashion, find everything you need with fast delivery and exceptional quality.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="@Url.Action("Shop", "Home")" class="btn-primary-custom">
+                            <i class="fas fa-store"></i> Shop Now
+                        </a>
+                        <a href="#categories" class="btn-secondary-custom">
+                            <i class="fas fa-th-large"></i> Browse Categories
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <h3>500+</h3>
+                            <span>Products</span>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>10K+</h3>
+                            <span>Happy Customers</span>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>24/7</h3>
+                            <span>Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center">
+                <div style="font-size:12rem;opacity:0.15;color:#6C63FF;">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="section-padding" id="categories">
+    <div class="container">
+        <div class="section-title">
+            <div class="title-accent"></div>
+            <h2>Shop by Category</h2>
+            <p>Browse our curated collection of categories</p>
+        </div>
+        <div class="row g-4">
+            @{
+                var icons = new[] { "fas fa-laptop", "fas fa-tshirt", "fas fa-home", "fas fa-running", "fas fa-book" };
+                int iconIndex = 0;
+            }
+            @foreach (var cat in categories)
+            {
+                <div class="col-lg col-md-4 col-6">
+                    <a href="@Url.Action("Shop", "Home", new { categoryId = cat.Id })" class="category-card">
+                        <div class="cat-icon">
+                            <i class="@icons[iconIndex % icons.Length]"></i>
+                        </div>
+                        <h5>@cat.Name</h5>
+                        <p>@cat.Products.Count Products</p>
+                    </a>
+                </div>
+                iconIndex++;
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="section-padding" style="background:#fff;">
+    <div class="container">
+        <div class="section-title">
+            <div class="title-accent"></div>
+            <h2>Featured Products</h2>
+            <p>Check out our latest arrivals and best sellers</p>
+        </div>
+        <div class="row g-4">
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="product-card">
+                        <div class="card-img-wrapper">
+                            <img src="@(product.ImageUrl ?? "/images/products/default.png")" alt="@product.Name" />
+                            @if (product.StockQuantity < 10 && product.StockQuantity > 0)
+                            {
+                                <span class="badge-overlay">Low Stock</span>
+                            }
+                            <div class="quick-actions">
+                                <a href="@Url.Action("Details", "Home", new { id = product.Id })" title="View Details"><i class="fas fa-eye"></i></a>
+                                <a href="@Url.Action("AddToCart", "Cart", new { productId = product.Id })" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="product-category">@product.Category?.Name</span>
+                            <a href="@Url.Action("Details", "Home", new { id = product.Id })" class="product-name">@product.Name</a>
+                            <div class="product-price">$@product.Price.ToString("N2")</div>
+                            <a href="@Url.Action("AddToCart", "Cart", new { productId = product.Id })" class="btn-add-cart">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-5">
+            <a href="@Url.Action("Shop", "Home")" class="btn-primary-custom">
+                View All Products <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                    <h5>Free Shipping</h5>
+                    <p>Free shipping on all orders over $50</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h5>Secure Payment</h5>
+                    <p>100% secure payment processing</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-undo"></i></div>
+                    <h5>Easy Returns</h5>
+                    <p>30-day hassle-free returns</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <h5>24/7 Support</h5>
+                    <p>Round-the-clock customer support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

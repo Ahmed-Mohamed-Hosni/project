@@ -1,0 +1,75 @@
+@model Order
+@{
+    ViewData["Title"] = "Checkout";
+    var cartItems = (List<ShoppingCartItem>)ViewBag.CartItems;
+    var cartTotal = (decimal)ViewBag.CartTotal;
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-credit-card"></i> Checkout</h1>
+    </div>
+</div>
+
+<div class="checkout-page">
+    <div class="container">
+        <form asp-action="Checkout" method="post">
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <div class="checkout-form">
+                        <h4><i class="fas fa-truck" style="color:#6C63FF;"></i> Shipping Information</h4>
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label" style="font-weight:600;">Full Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter your full name" style="border-radius:8px;padding:12px;" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label" style="font-weight:600;">Address</label>
+                            <input asp-for="Address" class="form-control" placeholder="Street address" style="border-radius:8px;padding:12px;" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="City" class="form-label" style="font-weight:600;">City</label>
+                                <input asp-for="City" class="form-control" placeholder="City" style="border-radius:8px;padding:12px;" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PhoneNumber" class="form-label" style="font-weight:600;">Phone Number</label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="+20 xxx xxx xxxx" style="border-radius:8px;padding:12px;" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="cart-summary">
+                        <h4><i class="fas fa-receipt"></i> Order Summary</h4>
+                        @foreach (var item in cartItems)
+                        {
+                            <div class="summary-row">
+                                <span>@item.Product?.Name x @item.Quantity</span>
+                                <span>$@((item.Product!.Price * item.Quantity).ToString("N2"))</span>
+                            </div>
+                        }
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span style="color:#00D9A6;font-weight:600;">@(cartTotal >= 50 ? "FREE" : "$5.00")</span>
+                        </div>
+                        <div class="summary-row summary-total">
+                            <span>Total</span>
+                            <span>$@((cartTotal >= 50 ? cartTotal : cartTotal + 5).ToString("N2"))</span>
+                        </div>
+                        <button type="submit" class="btn-checkout">
+                            <i class="fas fa-lock"></i> Place Order — $@((cartTotal >= 50 ? cartTotal : cartTotal + 5).ToString("N2"))
+                        </button>
+                        <p class="text-center mt-3" style="font-size:0.8rem;color:#636e72;">
+                            <i class="fas fa-shield-alt"></i> Your payment information is secure
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

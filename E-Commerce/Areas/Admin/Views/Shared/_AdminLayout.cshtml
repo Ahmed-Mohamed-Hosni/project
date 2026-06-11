@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        :root {
+            --sidebar-bg: #1e1e2d;
+            --sidebar-hover: #2a2a3d;
+            --sidebar-active: #6C63FF;
+            --content-bg: #f5f7fb;
+            --card-bg: #ffffff;
+            --text-white: #ffffff;
+            --text-muted: #a2a3b7;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--content-bg); overflow-x: hidden; }
+
+        /* Sidebar */
+        .admin-sidebar {
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            width: 260px;
+            background: var(--sidebar-bg);
+            z-index: 1000;
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+        .sidebar-brand {
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .sidebar-brand h3 {
+            color: var(--text-white);
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        .sidebar-brand h3 i { color: #6C63FF; margin-right: 6px; }
+        .sidebar-brand span { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px; }
+
+        .sidebar-nav { padding: 15px 0; }
+        .sidebar-nav .nav-section {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--text-muted); padding: 10px 20px 8px; font-weight: 600;
+        }
+        .sidebar-nav a {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 20px; color: var(--text-muted);
+            text-decoration: none; font-size: 0.9rem; font-weight: 500;
+            transition: all 0.2s; border-left: 3px solid transparent;
+        }
+        .sidebar-nav a:hover { background: var(--sidebar-hover); color: var(--text-white); }
+        .sidebar-nav a.active {
+            background: rgba(108,99,255,0.1); color: #6C63FF;
+            border-left-color: #6C63FF;
+        }
+        .sidebar-nav a i { width: 20px; text-align: center; font-size: 1rem; }
+
+        /* Main Content */
+        .admin-main {
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+        .admin-topbar {
+            background: var(--card-bg);
+            padding: 16px 30px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 999;
+        }
+        .admin-topbar h4 { font-weight: 700; font-size: 1.1rem; margin: 0; color: #2d3436; }
+        .admin-topbar .admin-user { display: flex; align-items: center; gap: 10px; }
+        .admin-topbar .admin-avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, #6C63FF, #FF6584);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 700; font-size: 0.85rem;
+        }
+
+        .admin-content { padding: 30px; }
+
+        /* Dashboard Cards */
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .stat-card .stat-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; margin-bottom: 16px;
+        }
+        .stat-card h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; }
+        .stat-card p { font-size: 0.85rem; color: #636e72; margin: 0; }
+
+        .icon-purple { background: rgba(108,99,255,0.12); color: #6C63FF; }
+        .icon-pink { background: rgba(255,101,132,0.12); color: #FF6584; }
+        .icon-green { background: rgba(0,217,166,0.12); color: #00D9A6; }
+        .icon-blue { background: rgba(116,185,255,0.12); color: #0984e3; }
+
+        /* Tables */
+        .admin-table { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .admin-table table { margin: 0; }
+        .admin-table th {
+            background: #f8f9fd; font-weight: 600; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.5px; color: #636e72;
+            padding: 14px 18px; border-bottom: 2px solid #eef0f5;
+        }
+        .admin-table td { padding: 14px 18px; vertical-align: middle; font-size: 0.9rem; }
+
+        /* Admin Forms */
+        .admin-form-card {
+            background: var(--card-bg); border-radius: 12px;
+            padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .admin-form-card .form-label { font-weight: 600; font-size: 0.85rem; color: #2d3436; }
+        .admin-form-card .form-control {
+            border-radius: 8px; padding: 10px 14px;
+            border: 1px solid #e1e5ea; transition: all 0.3s;
+        }
+        .admin-form-card .form-control:focus {
+            border-color: #6C63FF;
+            box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+        }
+
+        /* Buttons */
+        .btn-admin-primary {
+            background: linear-gradient(135deg, #6C63FF, #5A52D5);
+            color: #fff; border: none; padding: 10px 24px;
+            border-radius: 8px; font-weight: 600; transition: all 0.3s;
+        }
+        .btn-admin-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(108,99,255,0.4); color: #fff; }
+        .btn-admin-danger {
+            background: linear-gradient(135deg, #FF6584, #d63031);
+            color: #fff; border: none; padding: 10px 24px;
+            border-radius: 8px; font-weight: 600; transition: all 0.3s;
+        }
+        .btn-admin-danger:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(255,101,132,0.4); color: #fff; }
+
+        /* Badges */
+        .badge-status { padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 0.78rem; }
+        .badge-pending { background: #ffeaa7; color: #d68910; }
+        .badge-processing { background: #74b9ff; color: #2471a3; }
+        .badge-shipped { background: #a29bfe; color: #6c5ce7; }
+        .badge-delivered { background: #55efc4; color: #00b894; }
+        .badge-cancelled { background: #fab1a0; color: #d63031; }
+
+        /* Toast */
+        .toast-success {
+            position: fixed; top: 20px; right: 20px; z-index: 9999;
+            background: #00b894; color: #fff; padding: 14px 24px;
+            border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,184,148,0.4);
+            animation: slideIn 0.4s ease, fadeOut 0.4s ease 2.6s forwards;
+        }
+        @@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+        @@media (max-width: 991px) {
+            .admin-sidebar { width: 70px; }
+            .admin-sidebar .sidebar-brand h3 span,
+            .admin-sidebar .sidebar-nav a span,
+            .admin-sidebar .nav-section { display: none; }
+            .admin-sidebar .sidebar-brand h3 { font-size: 1rem; text-align: center; }
+            .admin-main { margin-left: 70px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+            <h3><i class="fas fa-bolt"></i> ShopZone
+                <span>Admin Panel</span>
+            </h3>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Main</div>
+            <a href="@Url.Action("Index", "Dashboard", new { area = "Admin" })" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")">
+                <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+            </a>
+            <div class="nav-section">Management</div>
+            <a href="@Url.Action("Index", "Category", new { area = "Admin" })" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active" : "")">
+                <i class="fas fa-tags"></i> <span>Categories</span>
+            </a>
+            <a href="@Url.Action("Index", "Product", new { area = "Admin" })" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" ? "active" : "")">
+                <i class="fas fa-box"></i> <span>Products</span>
+            </a>
+            <a href="@Url.Action("Index", "Order", new { area = "Admin" })" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
+                <i class="fas fa-shopping-bag"></i> <span>Orders</span>
+            </a>
+            <div class="nav-section">Navigation</div>
+            <a href="@Url.Action("Index", "Home", new { area = "" })">
+                <i class="fas fa-store"></i> <span>View Store</span>
+            </a>
+            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
+                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+        <div class="admin-topbar">
+            <h4>@ViewData["Title"]</h4>
+            <div class="admin-user">
+                <span style="font-size:0.9rem;color:#636e72;">@User.Identity?.Name</span>
+                <div class="admin-avatar">A</div>
+            </div>
+        </div>
+        <div class="admin-content">
+            @if (TempData["Success"] != null)
+            {
+                <div class="toast-success">
+                    <i class="fas fa-check-circle"></i> @TempData["Success"]
+                </div>
+            }
+            @RenderBody()
+        </div>
+    </div>
+
+    <form id="logoutForm" asp-controller="Account" asp-action="Logout" asp-area="" method="post" style="display:none;"></form>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

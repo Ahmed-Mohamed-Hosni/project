@@ -1,0 +1,63 @@
+@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-box"></i> My Orders</h1>
+    </div>
+</div>
+
+<div style="padding:40px 0;">
+    <div class="container">
+        @if (Model.Any())
+        {
+            <div class="order-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            var badgeClass = order.OrderStatus switch
+                            {
+                                "Pending" => "badge-pending",
+                                "Processing" => "badge-processing",
+                                "Shipped" => "badge-shipped",
+                                "Delivered" => "badge-delivered",
+                                "Cancelled" => "badge-cancelled",
+                                _ => "badge-pending"
+                            };
+                            <tr>
+                                <td><strong>#@order.Id</strong></td>
+                                <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                                <td><strong style="color:#6C63FF;">$@order.OrderTotal.ToString("N2")</strong></td>
+                                <td><span class="badge-status @badgeClass" style="padding:6px 14px;border-radius:20px;font-weight:600;font-size:0.78rem;">@order.OrderStatus</span></td>
+                                <td><a href="@Url.Action("OrderDetails", new { id = order.Id })" class="btn btn-sm btn-outline-primary" style="border-radius:6px;">View Details</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-box-open"></i>
+                <h3>No Orders Yet</h3>
+                <p>You haven't placed any orders yet. Start shopping now!</p>
+                <a href="@Url.Action("Shop", "Home")" class="btn-primary-custom mt-3">
+                    <i class="fas fa-store"></i> Start Shopping
+                </a>
+            </div>
+        }
+    </div>
+</div>
