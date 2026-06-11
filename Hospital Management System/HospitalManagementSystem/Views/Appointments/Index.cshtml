@@ -1,0 +1,139 @@
+@model IEnumerable<HospitalManagementSystem.Models.Appointment>
+@{
+    ViewData["Title"] = "Appointment Scheduling";
+}
+
+<div class="premium-card p-4 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <h4 class="mb-1 text-primary fw-bold">Appointment Scheduling</h4>
+            <p class="text-muted mb-0">Book, approve, coordinate, or cancel patient clinical consulting visits.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a asp-action="Create" class="btn-grad"><i class="fa-solid fa-calendar-plus"></i> Book New Appointment</a>
+        </div>
+    </div>
+</div>
+
+<!-- Filters Panel -->
+<div class="premium-card p-4 mb-4">
+    <form asp-action="Index" method="get" class="row g-3 align-items-end">
+        <div class="col-md-4 col-sm-6">
+            <label class="form-label form-label-custom">Filter by Doctor</label>
+            <select name="doctorId" asp-items="ViewBag.Doctors" class="form-select form-glass">
+                <option value="">-- All Doctors --</option>
+            </select>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <label class="form-label form-label-custom">Filter by Status</label>
+            <select name="status" class="form-select form-glass">
+                <option value="">-- All Statuses --</option>
+                <option value="Pending" selected="@(ViewBag.SelectedStatus == "Pending")">Pending</option>
+                <option value="Approved" selected="@(ViewBag.SelectedStatus == "Approved")">Approved</option>
+                <option value="Completed" selected="@(ViewBag.SelectedStatus == "Completed")">Completed</option>
+                <option value="Cancelled" selected="@(ViewBag.SelectedStatus == "Cancelled")">Cancelled</option>
+            </select>
+        </div>
+        <div class="col-md-3 col-sm-8">
+            <label class="form-label form-label-custom">Filter by Date</label>
+            <input type="date" name="date" value="@ViewBag.SelectedDate" class="form-control form-glass" />
+        </div>
+        <div class="col-md-2 col-sm-4 d-grid">
+            <button type="submit" class="btn btn-outline-glass"><i class="fa-solid fa-filter me-1"></i> Apply Filters</button>
+        </div>
+    </form>
+</div>
+
+<!-- Appointments Grid -->
+<div class="premium-card p-4">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor / Specialty</th>
+                    <th>Appointment Schedule</th>
+                    <th>Billed Fee</th>
+                    <th>Status</th>
+                    <th class="text-end">Management Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var app in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-bold">@app.Patient?.Name</div>
+                                <div class="text-xs text-muted">Phone: @app.Patient?.Phone</div>
+                            </td>
+                            <td>
+                                <div class="fw-bold">@app.Doctor?.Name</div>
+                                <span class="text-xs text-muted">@app.Doctor?.Specialization</span>
+                            </td>
+                            <td>
+                                <div>@app.AppointmentDate.ToString("MMMM dd, yyyy")</div>
+                                <div class="text-xs text-primary fw-bold"><i class="fa-regular fa-clock me-1"></i>@app.TimeSlot.ToString(@"hh\:mm")</div>
+                            </td>
+                            <td>
+                                <span class="fw-bold text-slate">$150.00</span>
+                                <div class="text-xs text-muted">Standard Fee</div>
+                            </td>
+                            <td>
+                                @if (app.Status == "Pending")
+                                {
+                                    <span class="badge-custom badge-pending">@app.Status</span>
+                                }
+                                else if (app.Status == "Approved")
+                                {
+                                    <span class="badge-custom badge-approved">@app.Status</span>
+                                }
+                                else if (app.Status == "Completed")
+                                {
+                                    <span class="badge-custom badge-completed">@app.Status</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-custom badge-cancelled">@app.Status</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-2">
+                                    @if (app.Status == "Pending")
+                                    {
+                                        <form asp-action="Approve" asp-route-id="@app.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-outline-glass btn-sm py-1 px-3" title="Approve Visit"><i class="fa-solid fa-check text-emerald me-1"></i> Approve</button>
+                                        </form>
+                                    }
+                                    @if (app.Status == "Approved" || app.Status == "Pending")
+                                    {
+                                        <form asp-action="Complete" asp-route-id="@app.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-outline-glass btn-sm py-1 px-3" title="Diagnose & Complete"><i class="fa-solid fa-circle-check text-primary me-1"></i> Diagnose</button>
+                                        </form>
+                                        <form asp-action="Cancel" asp-route-id="@app.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-outline-glass btn-sm py-1 px-2 text-danger" title="Cancel Booking"><i class="fa-solid fa-times"></i></button>
+                                        </form>
+                                    }
+                                    @if (app.Status == "Completed")
+                                    {
+                                        <span class="text-xs text-muted"><i class="fa-solid fa-circle-check text-emerald me-1"></i> Finalized</span>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-calendar-times fa-2x mb-3 text-primary"></i>
+                            <div>No appointments found matching filtered criteria.</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

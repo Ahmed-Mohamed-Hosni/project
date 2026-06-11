@@ -1,0 +1,149 @@
+@{
+    ViewData["Title"] = "Meet the Developer - Ahmed Mohamed Hosni";
+}
+
+<div class="container py-4">
+    <!-- Profile Hero Card -->
+    <div class="dev-profile-header text-center text-md-start">
+        <div class="row align-items-center g-4">
+            <div class="col-md-3 text-center">
+                <div class="position-relative d-inline-block">
+                    <!-- Avatar Mockup -->
+                    <div class="rounded-circle bg-gradient p-1" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); width: 170px; height: 170px; margin: 0 auto;">
+                        <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center" style="width: 162px; height: 162px;">
+                            <i class="bi bi-person-fill text-secondary" style="font-size: 5rem; color: var(--text-secondary) !important;"></i>
+                        </div>
+                    </div>
+                    <span class="position-absolute bottom-0 end-0 translate-middle badge rounded-pill bg-success p-2" style="border: 3px solid var(--bg-card); left: 70%; top: 75%;">
+                        <span class="visually-hidden">Active</span>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
+                    <span class="badge-custom badge-custom-primary">Senior Full Stack Architect</span>
+                    <span class="badge-custom badge-custom-success">Available for Projects</span>
+                </div>
+                <h1 class="display-5 fw-extrabold mb-1">Ahmed Mohamed Hosni</h1>
+                <h2 class="h4 text-primary mb-3">أحمد محمد حسني</h2>
+                <p class="lead text-secondary mb-4" style="max-width: 650px;">
+                    Enterprise C# .NET Specialist, specialized in building ultra-fast MVC backends, custom database schemas, and premium user-interactive frontends.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3">
+                    <a href="mailto:ahmed.mohamed@example.com" class="btn btn-custom btn-custom-primary">
+                        <i class="bi bi-envelope"></i> Contact Developer
+                    </a>
+                    <a href="https://github.com" target="_blank" class="btn btn-custom btn-custom-secondary">
+                        <i class="bi bi-github"></i> GitHub Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats & Capabilities -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="glass-card text-center">
+                <div class="stats-icon bg-opacity-10 text-primary mx-auto" style="background: rgba(99,102,241,0.15);">
+                    <i class="bi bi-cpu text-primary" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 class="h5 mt-3 text-white">Backend Architecture</h3>
+                <p class="text-secondary mb-0">Built on ASP.NET Core 9.0 using Entity Framework Core and Repository patterns with SQL Server.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="glass-card text-center">
+                <div class="stats-icon bg-opacity-10 text-secondary mx-auto" style="background: rgba(139,92,246,0.15);">
+                    <i class="bi bi-palette text-secondary" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 class="h5 mt-3 text-white">Modern UI & Aesthetics</h3>
+                <p class="text-secondary mb-0">Engineered with slate-indigo colors, glassmorphic panels, CSS keyframe animations, and full responsiveness.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="glass-card text-center">
+                <div class="stats-icon bg-opacity-10 text-success mx-auto" style="background: rgba(16,185,129,0.15);">
+                    <i class="bi bi-database-check text-success" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 class="h5 mt-3 text-white">Robust DB Engineering</h3>
+                <p class="text-secondary mb-0">Uses SQL Server (SSMS 22) with foreign keys, composite maps, schedules, and dynamic time-slot queries.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Breakdown & Tech Stack -->
+    <div class="row g-5">
+        <div class="col-lg-7">
+            <h3 class="text-white mb-4"><i class="bi bi-code-square text-primary me-2"></i> Booking Engine Specifications</h3>
+            <div class="glass-panel">
+                <p class="text-secondary">
+                    This Booking & Appointment system was designed to handle high concurrency. Slots are dynamically rendered on the calendar after filtering out existing appointments and checking matching provider schedules.
+                </p>
+                <h6 class="text-white fw-bold mt-4 mb-3">Core Features Implemented:</h6>
+                <ul class="list-unstyled d-flex flex-column gap-3 text-secondary">
+                    <li class="d-flex align-items-start gap-2">
+                        <i class="bi bi-check-circle-fill text-accent mt-1"></i>
+                        <span><strong>Multi-Service Routing:</strong> Booking engine automatically supports clinical visits, salon styling, and corporate consults.</span>
+                    </li>
+                    <li class="d-flex align-items-start gap-2">
+                        <i class="bi bi-check-circle-fill text-accent mt-1"></i>
+                        <span><strong>Interactive Calendar:</strong> Dynamically calculates working days, disables fully booked days, and fetches available hours.</span>
+                    </li>
+                    <li class="d-flex align-items-start gap-2">
+                        <i class="bi bi-check-circle-fill text-accent mt-1"></i>
+                        <span><strong>Admin Control Room:</strong> Live statistics, quick status selectors (Confirm, Cancel, Complete), and full CRUD support.</span>
+                    </li>
+                    <li class="d-flex align-items-start gap-2">
+                        <i class="bi bi-check-circle-fill text-accent mt-1"></i>
+                        <span><strong>Double-Booking Prevention:</strong> Built-in database queries verify slot availability prior to confirmation.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-lg-5">
+            <h3 class="text-white mb-4"><i class="bi bi-stack text-secondary me-2"></i> Professional Stack</h3>
+            <div class="glass-card">
+                <div class="mb-4">
+                    <h6 class="text-white fw-bold mb-2">Programming Languages</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="tech-tag"><i class="bi bi-terminal-fill text-primary"></i> C# (v13)</span>
+                        <span class="tech-tag"><i class="bi bi-filetype-js text-warning"></i> JavaScript (ES6)</span>
+                        <span class="tech-tag"><i class="bi bi-filetype-css text-info"></i> CSS3 / HTML5</span>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h6 class="text-white fw-bold mb-2">Frameworks & ORMs</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="tech-tag"><i class="bi bi-box-seam text-secondary"></i> ASP.NET Core MVC 9.0</span>
+                        <span class="tech-tag"><i class="bi bi-diagram-3 text-success"></i> EF Core 9.0</span>
+                        <span class="tech-tag"><i class="bi bi-bootstrap text-info"></i> Bootstrap 5</span>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h6 class="text-white fw-bold mb-2">Databases & Tools</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="tech-tag"><i class="bi bi-database text-warning"></i> SQL Server (SSMS 22)</span>
+                        <span class="tech-tag"><i class="bi bi-terminal"></i> dotnet CLI</span>
+                        <span class="tech-tag"><i class="bi bi-git"></i> Git & GitHub</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h6 class="text-white fw-bold mb-2">UI Design Systems</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="tech-tag"><i class="bi bi-stars text-primary"></i> Glassmorphism</span>
+                        <span class="tech-tag"><i class="bi bi-activity text-secondary"></i> Eye-Friendly Dark Slate</span>
+                        <span class="tech-tag"><i class="bi bi-bounding-box text-success"></i> CSS Keyframe Animations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

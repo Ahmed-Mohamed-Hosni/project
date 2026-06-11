@@ -1,0 +1,122 @@
+@model InventoryManagementSystem.Models.Product
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<div class="content-header">
+    <div class="page-title-area">
+        <h1>Add Product</h1>
+        <p>Introduce a new stock item into your inventory database</p>
+    </div>
+    <div class="header-actions">
+        <a asp-action="Index" class="btn-premium-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Catalog
+        </a>
+    </div>
+</div>
+
+<div class="row animate-fade-in" style="max-width: 800px; margin: 0 auto;">
+    <div class="col-md-12">
+        <div class="premium-panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <i class="bi bi-plus-circle-fill"></i> Product Specifications
+                </div>
+            </div>
+
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="Name" class="form-label-premium"></label>
+                            <input asp-for="Name" class="form-input-premium" placeholder="e.g. Logitec MX Master Mouse" />
+                            <span asp-validation-for="Name" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="SKU" class="form-label-premium"></label>
+                            <input asp-for="SKU" class="form-input-premium" placeholder="e.g. TECH-MOU-452" />
+                            <span asp-validation-for="SKU" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="CategoryId" class="form-label-premium"></label>
+                            <select asp-for="CategoryId" class="form-input-premium" asp-items="ViewBag.CategoryId">
+                                <option value="">Select Category</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="SupplierId" class="form-label-premium"></label>
+                            <select asp-for="SupplierId" class="form-input-premium" asp-items="ViewBag.SupplierId">
+                                <option value="">Select Supplier</option>
+                            </select>
+                            <span asp-validation-for="SupplierId" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="CostPrice" class="form-label-premium"></label>
+                            <input asp-for="CostPrice" type="number" step="0.01" class="form-input-premium" placeholder="0.00" />
+                            <span asp-validation-for="CostPrice" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="Price" class="form-label-premium"></label>
+                            <input asp-for="Price" type="number" step="0.01" class="form-input-premium" placeholder="0.00" />
+                            <span asp-validation-for="Price" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="StockQuantity" class="form-label-premium"></label>
+                            <input asp-for="StockQuantity" type="number" class="form-input-premium" placeholder="Initial stock quantity" />
+                            <span asp-validation-for="StockQuantity" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="ReorderLevel" class="form-label-premium"></label>
+                            <input asp-for="ReorderLevel" type="number" class="form-input-premium" placeholder="e.g. 10 (Alert limit)" />
+                            <span asp-validation-for="ReorderLevel" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-premium">
+                    <label asp-for="Description" class="form-label-premium"></label>
+                    <textarea asp-for="Description" rows="3" class="form-input-premium" placeholder="Description of product details..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger" style="font-size: 0.8rem;"></span>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn-premium">
+                        <i class="bi bi-save"></i> Save Product
+                    </button>
+                    <a asp-action="Index" class="btn-premium-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

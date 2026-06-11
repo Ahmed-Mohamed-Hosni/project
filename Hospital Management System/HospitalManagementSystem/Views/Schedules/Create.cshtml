@@ -1,0 +1,77 @@
+@model HospitalManagementSystem.Models.DoctorSchedule
+@{
+    ViewData["Title"] = "Add Work Shift";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="premium-card p-5">
+            <div class="mb-4">
+                <a asp-action="Index" class="btn btn-outline-glass btn-sm mb-3"><i class="fa-solid fa-arrow-left me-1"></i> Back to Shifts</a>
+                <h4 class="font-weight-bold text-primary"><i class="fa-solid fa-clock-rotate-left me-2"></i> Configure Doctor Work Shift</h4>
+                <p class="text-muted">Define the day of the week, working hours, and interval length for patient bookings.</p>
+            </div>
+
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row g-3">
+                    <!-- Select Doctor -->
+                    <div class="col-md-6">
+                        <label asp-for="DoctorId" class="form-label form-label-custom">Select Doctor</label>
+                        <select asp-for="DoctorId" asp-items="ViewBag.Doctors" class="form-select form-glass" required>
+                            <option value="">-- Choose Doctor --</option>
+                        </select>
+                        <span asp-validation-for="DoctorId" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Day Of Week -->
+                    <div class="col-md-6">
+                        <label asp-for="DayOfWeek" class="form-label form-label-custom">Working Day</label>
+                        <select asp-for="DayOfWeek" class="form-select form-glass" required>
+                            <option value="Sunday">Sunday</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                        </select>
+                        <span asp-validation-for="DayOfWeek" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Start Time -->
+                    <div class="col-md-4">
+                        <label asp-for="StartTime" class="form-label form-label-custom">Start Time</label>
+                        <input asp-for="StartTime" type="time" class="form-control form-glass" required />
+                        <span asp-validation-for="StartTime" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- End Time -->
+                    <div class="col-md-4">
+                        <label asp-for="EndTime" class="form-label form-label-custom">End Time</label>
+                        <input asp-for="EndTime" type="time" class="form-control form-glass" required />
+                        <span asp-validation-for="EndTime" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Slot Duration -->
+                    <div class="col-md-4">
+                        <label asp-for="SlotDurationMinutes" class="form-label form-label-custom">Slot Duration (Minutes)</label>
+                        <input asp-for="SlotDurationMinutes" type="number" min="10" max="120" class="form-control form-glass" required />
+                        <span asp-validation-for="SlotDurationMinutes" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-12 text-end mt-4">
+                        <a asp-action="Index" class="btn btn-outline-glass me-2">Cancel</a>
+                        <button type="submit" class="btn-grad"><i class="fa-solid fa-save me-1"></i> Save Work Shift</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

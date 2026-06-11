@@ -1,0 +1,115 @@
+@model IEnumerable<InventoryManagementSystem.Models.StockTransaction>
+
+@{
+    ViewData["Title"] = "Stock Movement Logs";
+}
+
+<div class="content-header">
+    <div class="page-title-area">
+        <h1>Stock Movement Logs</h1>
+        <p>Review comprehensive audit trail histories of all incoming, outgoing, and adjusted inventory</p>
+    </div>
+</div>
+
+<!-- Advanced Filters -->
+<div class="premium-panel mb-4 animate-fade-in">
+    <form asp-action="Index" method="get">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <div class="form-group-premium mb-0">
+                    <label class="form-label-premium">Search Product</label>
+                    <div class="search-wrapper-premium">
+                        <i class="bi bi-search"></i>
+                        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-input-premium" placeholder="Search by SKU or name..." />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group-premium mb-0">
+                    <label class="form-label-premium">Transaction Type</label>
+                    <select name="transactionType" class="form-input-premium" asp-items="ViewBag.TransactionTypes">
+                        <option value="">All Types</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn-premium w-100 justify-content-center py-2">
+                    <i class="bi bi-funnel"></i> Apply Filter
+                </button>
+                <a asp-action="Index" class="btn-premium-secondary py-2"><i class="bi bi-x-lg"></i></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="premium-panel animate-fade-in">
+    <div class="panel-header">
+        <div class="panel-title">
+            <i class="bi bi-clock-history"></i> Stock Transaction Records (@Model.Count())
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-premium">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Product SKU</th>
+                    <th>Product Name</th>
+                    <th>Change Quantity</th>
+                    <th>Transaction Type</th>
+                    <th>Reason / Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="bi bi-journal-x" style="font-size: 2.5rem; display: block; margin-bottom: 12px;"></i>
+                            No stock movement logs found.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="font-size: 0.9rem; color: var(--text-secondary);">@item.TransactionDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td><code style="font-weight: 700; color: var(--primary);">@item.Product?.SKU</code></td>
+                            <td style="font-weight: 600;">@item.Product?.Name</td>
+                            <td style="font-weight: 700;">
+                                @if (item.Quantity > 0)
+                                {
+                                    <span class="text-success"><i class="bi bi-plus-circle-fill me-1"></i> +@item.Quantity</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger"><i class="bi bi-dash-circle-fill me-1"></i> @item.Quantity</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Type == "Stock In")
+                                {
+                                    <span class="badge-premium success">Stock In</span>
+                                }
+                                else if (item.Type == "Stock Out")
+                                {
+                                    <span class="badge-premium danger">Stock Out</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-premium warning">Adjustment</span>
+                                }
+                            </td>
+                            <td class="text-secondary" style="font-size: 0.9rem; max-width: 300px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="@item.Description">
+                                @item.Description
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

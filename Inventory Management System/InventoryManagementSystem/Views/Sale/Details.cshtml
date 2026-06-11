@@ -1,0 +1,124 @@
+@model InventoryManagementSystem.Models.Sale
+
+@{
+    ViewData["Title"] = $"Invoice {Model.InvoiceNumber}";
+}
+
+<div class="content-header d-print-none">
+    <div class="page-title-area">
+        <h1>Invoice Details</h1>
+        <p>Review sales receipts and generate printed paper invoices</p>
+    </div>
+    <div class="header-actions">
+        <button onclick="window.print()" class="btn-premium">
+            <i class="bi bi-printer"></i> Print Invoice
+        </button>
+        <a asp-action="Index" class="btn-premium-secondary">
+            <i class="bi bi-arrow-left"></i> Sales History
+        </a>
+    </div>
+</div>
+
+<!-- Invoice Card Container -->
+<div class="row justify-content-center animate-fade-in">
+    <div class="col-md-9">
+        <div class="premium-panel p-5" id="printArea" style="background-color: white; border: 1px solid var(--border-color); border-radius: var(--radius-lg);">
+            
+            <!-- Invoice Header for Print/Screen -->
+            <div class="d-flex justify-content-between align-items-center mb-5 pb-4 border-bottom">
+                <div>
+                    <h2 class="fw-bold text-dark m-0" style="font-size: 2.2rem; letter-spacing: -1px;">
+                        <i class="bi bi-receipt-cutoff text-primary me-2"></i> RECEIPT
+                    </h2>
+                    <span class="text-secondary" style="font-size: 0.9rem;">Inventory Management System Pro</span>
+                </div>
+                <div class="text-end">
+                    <h5 class="m-0 text-secondary" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Invoice Number</h5>
+                    <strong class="text-primary" style="font-size: 1.25rem;">@Model.InvoiceNumber</strong>
+                </div>
+            </div>
+
+            <!-- Client & Transaction Info Metadata -->
+            <div class="row mb-5">
+                <div class="col-6 col-sm-6">
+                    <h6 class="text-uppercase text-secondary fw-semibold mb-2" style="font-size: 0.75rem; letter-spacing: 0.8px;">Bill To:</h6>
+                    <h5 class="fw-bold mb-1" style="font-size: 1.1rem; color: var(--text-main);">@Model.CustomerName</h5>
+                    @if (!string.IsNullOrEmpty(Model.CustomerPhone))
+                    {
+                        <p class="text-secondary mb-0" style="font-size: 0.9rem;"><i class="bi bi-telephone text-muted me-1"></i> @Model.CustomerPhone</p>
+                    }
+                </div>
+                <div class="col-6 col-sm-6 text-end">
+                    <div class="mb-2">
+                        <span class="text-secondary me-2" style="font-size: 0.9rem;">Date Filed:</span>
+                        <strong style="font-size: 0.95rem; color: var(--text-main);">@Model.SaleDate.ToString("yyyy-MM-dd HH:mm")</strong>
+                    </div>
+                    <div>
+                        <span class="text-secondary me-2" style="font-size: 0.9rem;">Cashier Agent:</span>
+                        <span class="badge bg-light text-dark border px-3 py-1" style="font-size: 0.85rem; font-weight: 600;">@Model.SalesPerson</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Details Grid -->
+            <div class="table-responsive mb-5">
+                <table class="table table-borderless align-middle" style="font-size: 0.95rem;">
+                    <thead>
+                        <tr class="border-bottom" style="color: var(--text-secondary); font-weight: 600;">
+                            <th class="py-3 px-2">SKU</th>
+                            <th class="py-3">Product Name</th>
+                            <th class="py-3 text-center" style="width: 100px;">Quantity</th>
+                            <th class="py-3 text-end" style="width: 120px;">Unit Price</th>
+                            <th class="py-3 text-end" style="width: 150px; padding-right: 15px;">Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SaleItems)
+                        {
+                            <tr class="border-bottom-subtle" style="border-bottom: 1px solid #f3f4f6;">
+                                <td class="py-3 px-2 font-monospace" style="color: var(--primary); font-weight: 600;">@item.Product?.SKU</td>
+                                <td class="py-3">
+                                    <strong style="color: var(--text-main);">@item.Product?.Name</strong>
+                                </td>
+                                <td class="py-3 text-center fw-semibold">@item.Quantity</td>
+                                <td class="py-3 text-end">$@item.UnitPrice.ToString("F2")</td>
+                                <td class="py-3 text-end fw-bold" style="padding-right: 15px; color: var(--text-main);">$@item.TotalPrice.ToString("F2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Summary Total Calculations -->
+            <div class="row justify-content-end mb-5">
+                <div class="col-md-5 col-sm-6 text-end">
+                    <div class="d-flex justify-content-between py-2 border-bottom border-light">
+                        <span class="text-secondary" style="font-size: 0.95rem;">Subtotal</span>
+                        <span class="fw-semibold">$@Model.TotalAmount.ToString("F2")</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-2 border-bottom border-light">
+                        <span class="text-secondary" style="font-size: 0.95rem;">Tax (0.00%)</span>
+                        <span class="text-muted">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-3">
+                        <span class="fw-bold text-dark" style="font-size: 1.15rem;">Grand Total</span>
+                        <strong class="text-primary" style="font-size: 1.4rem; font-weight: 800;">$@Model.TotalAmount.ToString("F2")</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature Branding footer -->
+            <div class="border-top pt-4 text-center mt-5">
+                <p class="text-muted m-0 mb-3" style="font-size: 0.85rem; font-style: italic;">Thank you for your business!</p>
+                
+                <!-- Glowing Developer Badge for prints/screens -->
+                <div class="p-3 mx-auto" style="max-width: 400px; border-radius: var(--radius-md); background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 1px solid var(--border-color);">
+                    <div class="text-uppercase text-primary fw-bold" style="font-size: 0.7rem; letter-spacing: 1.5px; margin-bottom: 4px;">System Developed & Designed By</div>
+                    <div class="fw-bold text-dark" style="font-size: 1rem;">Ahmed Mohamed Hosni</div>
+                    <div class="text-secondary" style="font-size: 0.9rem; font-family: 'Outfit';">أحمد محمد حسني</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+@model IEnumerable<InventoryManagementSystem.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="content-header">
+    <div class="page-title-area">
+        <h1>Product Catalog</h1>
+        <p>Track pricing, margins, stock levels, and vendor assignments</p>
+    </div>
+    <div class="header-actions">
+        <a asp-action="Create" class="btn-premium">
+            <i class="bi bi-plus-lg"></i> Add Product
+        </a>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show border-0 rounded-4 shadow-sm mb-4" role="alert" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success);">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Advanced Filters Panel -->
+<div class="premium-panel mb-4 animate-fade-in">
+    <form asp-action="Index" method="get">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <div class="form-group-premium mb-0">
+                    <label class="form-label-premium">Search Products</label>
+                    <div class="search-wrapper-premium">
+                        <i class="bi bi-search"></i>
+                        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-input-premium" placeholder="Enter SKU or name..." />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group-premium mb-0">
+                    <label class="form-label-premium">Filter by Category</label>
+                    <select name="categoryId" class="form-input-premium" asp-items="ViewBag.Categories">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-check form-switch pb-2">
+                    <input class="form-check-input" type="checkbox" name="lowStock" id="lowStockSwitch" value="true" @(ViewData["LowStockOnly"] as bool? == true ? "checked" : "") />
+                    <label class="form-check-label text-secondary fw-semibold" for="lowStockSwitch" style="font-size: 0.9rem;">
+                        <i class="bi bi-exclamation-triangle text-warning me-1"></i> Low Stock Alerts Only
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn-premium w-100 justify-content-center py-2">
+                    <i class="bi bi-funnel"></i> Apply
+                </button>
+                <a asp-action="Index" class="btn-premium-secondary py-2"><i class="bi bi-x-lg"></i></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="premium-panel animate-fade-in">
+    <div class="panel-header">
+        <div class="panel-title">
+            <i class="bi bi-box-seam"></i> Products Directory (@Model.Count())
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-premium">
+            <thead>
+                <tr>
+                    <th>SKU</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Supplier</th>
+                    <th style="text-align: right;">Cost Price</th>
+                    <th style="text-align: right;">Selling Price</th>
+                    <th style="text-align: center;">Stock</th>
+                    <th style="text-align: center;">Reorder</th>
+                    <th style="text-align: right; padding-right: 40px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="9" class="text-center py-5 text-muted">
+                            <i class="bi bi-box-fill text-muted" style="font-size: 2.5rem; display: block; margin-bottom: 12px;"></i>
+                            No products found matching filters.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        bool isLowStock = item.StockQuantity <= item.ReorderLevel;
+                        <tr class="@(isLowStock ? "pulse-warning-border" : "")">
+                            <td><code style="font-weight: 700; color: var(--primary);">@item.SKU</code></td>
+                            <td>
+                                <div style="font-weight: 600;">@item.Name</div>
+                                <div class="text-secondary" style="font-size: 0.75rem; max-width: 250px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">@item.Description</div>
+                            </td>
+                            <td><span class="badge-premium secondary">@item.Category?.Name</span></td>
+                            <td class="text-secondary" style="font-size: 0.85rem;">@item.Supplier?.Name</td>
+                            <td style="text-align: right; font-weight: 500;">$@item.CostPrice.ToString("F2")</td>
+                            <td style="text-align: right; font-weight: 700; color: var(--text-main);">$@item.Price.ToString("F2")</td>
+                            <td style="text-align: center;">
+                                @if (isLowStock)
+                                {
+                                    <span class="badge-premium danger low-stock-pulse px-3">
+                                        <i class="bi bi-exclamation-triangle-fill"></i> @item.StockQuantity Alert
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-premium success px-3">@item.StockQuantity OK</span>
+                                }
+                            </td>
+                            <td style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">@item.ReorderLevel</td>
+                            <td style="text-align: right; padding-right: 20px;">
+                                <a asp-action="AdjustStock" asp-route-id="@item.Id" class="btn-premium-secondary py-1 px-2 me-1" title="Adjust Stock" style="font-size: 0.8rem;">
+                                    <i class="bi bi-arrow-down-up text-secondary"></i> Stock
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn-premium-secondary py-1 px-2 me-1" title="Edit" style="font-size: 0.8rem;">
+                                    <i class="bi bi-pencil-square text-primary"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn-premium-danger py-1 px-2" title="Delete" style="font-size: 0.8rem;">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

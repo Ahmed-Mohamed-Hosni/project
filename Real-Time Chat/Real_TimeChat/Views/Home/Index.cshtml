@@ -1,0 +1,178 @@
+@model Real_TimeChat.Models.User
+@{
+    Layout = "~/Views/Shared/_ChatLayout.cshtml";
+    ViewData["Title"] = "Chat Dashboard";
+}
+
+<!-- Hidden Inputs for JS client authentication -->
+<input type="hidden" id="currentUserId" value="@Model.Id" />
+<input type="hidden" id="currentUserName" value="@Model.Username" />
+
+<div class="chat-app-container">
+
+    <!-- Sidebar Pane -->
+    <aside class="chat-sidebar" id="chatSidebar">
+        
+        <!-- Profile info section -->
+        <div class="sidebar-profile">
+            <div class="profile-info">
+                <div class="profile-avatar-container">
+                    <img class="profile-avatar" src="@Model.AvatarUrl" alt="@Model.Username" />
+                </div>
+                <div class="profile-details">
+                    <h4>@Model.Username</h4>
+                    <p>My Workspace</p>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <!-- Create Group Button -->
+                <button class="icon-btn" title="Create Group" onclick="openModal('createGroupModal')">
+                    <i class="fa-solid fa-users-gear"></i>
+                </button>
+                <!-- Edit Profile Button -->
+                <a class="icon-btn" title="Profile Settings" asp-controller="Account" asp-action="Profile">
+                    <i class="fa-solid fa-user-pen"></i>
+                </a>
+                <!-- Logout Button -->
+                <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="icon-btn" title="Logout" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.1);">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" class="search-input" id="sidebarSearchInput" placeholder="Search users by name..." autocomplete="off" />
+            </div>
+            <!-- Search Results Dropdown -->
+            <div class="search-results-dropdown" id="searchResultsDropdown">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Tab Selectors -->
+        <div class="sidebar-tabs">
+            <button class="tab-btn active" id="tabDirect">Direct</button>
+            <button class="tab-btn" id="tabGroup">Groups</button>
+        </div>
+
+        <!-- Chat Lists -->
+        <div class="chat-lists-container">
+            <!-- Direct Chats list -->
+            <div id="directChatList">
+                <!-- Dynamically populated -->
+            </div>
+            <!-- Group Chats list -->
+            <div id="groupChatList" style="display: none;">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Sidebar Signature -->
+        <div class="sidebar-footer">
+            Designed by <strong>Ahmed Mohamed Hosni</strong>
+        </div>
+
+    </aside>
+
+    <!-- Main Chat Pane -->
+    <main class="chat-main-area">
+
+        <!-- Default Empty State Screen -->
+        <div class="chat-empty-state" id="emptyState">
+            <div class="empty-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
+            <h2>Live Connect Workspace</h2>
+            <p>
+                Experience real-time messaging with instant updates, online status indicators, and sleek group workflows. 
+                Select an active conversation or find friends using the search bar to get started.
+            </p>
+            
+            <div class="welcome-tagline">
+                Designed &amp; Developed with &hearts; by <strong>Ahmed Mohamed Hosni</strong>
+            </div>
+        </div>
+
+        <!-- Active Chat Area Workspace (Hidden by default) -->
+        <div class="chat-main-area" id="activeChatArea" style="display: none;">
+            
+            <!-- Chat Room Header -->
+            <div class="chat-header" id="activeChatHeader">
+                <div class="active-chat-details">
+                    <!-- Mobile Sidebar Toggle -->
+                    <button class="icon-btn sidebar-toggle-btn" id="mobileSidebarToggle" style="margin-right: 8px;">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    
+                    <img class="active-chat-avatar" id="activeChatAvatar" src="/avatars/avatar_1.svg" alt="Active Chat" />
+                    
+                    <div class="active-chat-info">
+                        <h4 class="active-chat-name" id="activeChatName">Room Name</h4>
+                        <p class="active-chat-status" id="activeChatStatus">Online</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Stream -->
+            <div class="messages-container" id="messagesList">
+                <!-- Message bubbles will be appended here -->
+            </div>
+
+            <!-- Typing indicator bubble overlay -->
+            <div class="typing-indicator-wrapper" id="typingIndicator">
+                <div class="typing-bubble">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <span id="typingUserText" style="font-size:0.75rem;color:var(--text-muted);">User is typing...</span>
+            </div>
+
+            <!-- Chat Input controls -->
+            <div class="chat-input-area">
+                <div class="input-box-wrapper">
+                    <textarea class="chat-text-input" id="messageInput" rows="1" placeholder="Type a message..."></textarea>
+                    
+                    <div class="chat-input-actions">
+                        <button class="btn-send" id="btnSendMessage">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- Modal: Create Group -->
+<div class="modal-overlay" id="createGroupModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Create New Group</h3>
+            <button class="close-modal-btn" onclick="closeModal('createGroupModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div style="margin-bottom:15px;">
+                <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:6px;">Group Name</label>
+                <input type="text" class="form-input-custom" id="groupNameInput" placeholder="Enter group name..." maxlength="50" required />
+            </div>
+            <div style="margin-bottom:20px;">
+                <label style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:6px;">Description (Optional)</label>
+                <input type="text" class="form-input-custom" id="groupDescInput" placeholder="Enter group topic..." maxlength="150" />
+            </div>
+            <button type="button" class="btn-modal-submit" onclick="submitCreateGroup()">Create Group</button>
+        </div>
+    </div>
+</div>

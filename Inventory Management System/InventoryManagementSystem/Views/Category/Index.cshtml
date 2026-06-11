@@ -1,0 +1,86 @@
+@model IEnumerable<InventoryManagementSystem.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="content-header">
+    <div class="page-title-area">
+        <h1>Product Categories</h1>
+        <p>Organize inventory items using distinct custom categories</p>
+    </div>
+    <div class="header-actions">
+        <a asp-action="Create" class="btn-premium">
+            <i class="bi bi-plus-lg"></i> New Category
+        </a>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show border-0 rounded-4 shadow-sm mb-4" role="alert" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success);">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="premium-panel">
+    <div class="panel-header">
+        <div class="panel-title">
+            <i class="bi bi-folder2-open"></i> Category Records (@Model.Count())
+        </div>
+        <div class="panel-actions" style="width: 300px;">
+            <form asp-action="Index" method="get">
+                <div class="search-wrapper-premium">
+                    <i class="bi bi-search"></i>
+                    <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-input-premium" placeholder="Search categories..." />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-premium">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Category Name</th>
+                    <th>Description</th>
+                    <th style="text-align: right; padding-right: 40px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="bi bi-folder-x" style="font-size: 2.5rem; display: block; margin-bottom: 12px;"></i>
+                            No categories found matching your query.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="font-weight: 700; color: var(--text-secondary);">@item.Id</td>
+                            <td style="font-weight: 600;">@item.Name</td>
+                            <td class="text-secondary" style="max-width: 400px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                                @(string.IsNullOrEmpty(item.Description) ? "No description provided" : item.Description)
+                            </td>
+                            <td style="text-align: right; padding-right: 20px;">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn-premium-secondary py-1 px-3 me-2" style="font-size: 0.8rem;">
+                                    <i class="bi bi-pencil-square text-primary"></i> Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn-premium-danger py-1 px-3" style="font-size: 0.8rem;">
+                                    <i class="bi bi-trash3-fill"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

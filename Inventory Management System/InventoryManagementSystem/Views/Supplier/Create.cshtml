@@ -1,0 +1,84 @@
+@model InventoryManagementSystem.Models.Supplier
+
+@{
+    ViewData["Title"] = "Register Supplier";
+}
+
+<div class="content-header">
+    <div class="page-title-area">
+        <h1>Register Supplier</h1>
+        <p>Add a new vendor supplying items to the system</p>
+    </div>
+    <div class="header-actions">
+        <a asp-action="Index" class="btn-premium-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Directory
+        </a>
+    </div>
+</div>
+
+<div class="row animate-fade-in" style="max-width: 700px; margin: 0 auto;">
+    <div class="col-md-12">
+        <div class="premium-panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <i class="bi bi-person-fill-add"></i> Supplier Information
+                </div>
+            </div>
+
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="Name" class="form-label-premium"></label>
+                            <input asp-for="Name" class="form-input-premium" placeholder="e.g. Acme Corporation" />
+                            <span asp-validation-for="Name" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="ContactName" class="form-label-premium"></label>
+                            <input asp-for="ContactName" class="form-input-premium" placeholder="e.g. John Smith" />
+                            <span asp-validation-for="ContactName" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="Phone" class="form-label-premium"></label>
+                            <input asp-for="Phone" class="form-input-premium" placeholder="e.g. +1 555 123-4567" />
+                            <span asp-validation-for="Phone" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group-premium">
+                            <label asp-for="Email" class="form-label-premium"></label>
+                            <input asp-for="Email" class="form-input-premium" placeholder="e.g. contact@acme.com" />
+                            <span asp-validation-for="Email" class="text-danger" style="font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-premium">
+                    <label asp-for="Address" class="form-label-premium"></label>
+                    <textarea asp-for="Address" rows="3" class="form-input-premium" placeholder="Full address details..."></textarea>
+                    <span asp-validation-for="Address" class="text-danger" style="font-size: 0.8rem;"></span>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn-premium">
+                        <i class="bi bi-save"></i> Register Supplier
+                    </button>
+                    <a asp-action="Index" class="btn-premium-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

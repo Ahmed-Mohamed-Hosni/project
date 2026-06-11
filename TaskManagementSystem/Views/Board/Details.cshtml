@@ -1,0 +1,55 @@
+@model TaskManagementSystem.Models.Board
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container-fluid py-3 px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-2">
+            <a href="@Url.Action("Index", "Board")" class="btn btn-light shadow-sm text-dark px-3"><i class="bi bi-arrow-left"></i> Back</a>
+            <h2 class="fw-bold m-0 ms-2">@Model.Title</h2>
+        </div>
+    </div>
+
+    <div class="board-container" id="board-container">
+        @foreach (var list in Model.Lists)
+        {
+            <div class="board-list" data-list-id="@list.Id">
+                <div class="board-list-header">
+                    <span>@list.Title</span>
+                    <span class="badge bg-secondary rounded-pill">@list.Cards.Count</span>
+                </div>
+                
+                <div class="cards-container" data-list-id="@list.Id">
+                    @foreach (var card in list.Cards)
+                    {
+                        <div class="task-card" draggable="true" data-card-id="@card.Id">
+                            <div class="fw-semibold text-dark">@card.Title</div>
+                            @if (!string.IsNullOrEmpty(card.Description))
+                            {
+                                <div class="text-muted small mt-2"><i class="bi bi-text-paragraph"></i> @card.Description</div>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-2">
+                    <button class="w-100 add-card-btn text-start" data-list-id="@list.Id">
+                        <i class="bi bi-plus-lg"></i> Add a card
+                    </button>
+                    <div class="add-card-form d-none mt-2" id="form-@list.Id">
+                        <textarea class="form-control mb-2 shadow-sm" rows="2" placeholder="Enter a title for this card..." id="input-@list.Id" style="resize:none;"></textarea>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn-primary-custom add-card-submit" data-list-id="@list.Id">Add card</button>
+                            <button class="btn btn-light border add-card-cancel" data-list-id="@list.Id"><i class="bi bi-x-lg"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/board.js"></script>
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hospital Management System</title>
+    
+    <!-- Bootstrap and Custom CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+    
+    <!-- FontAwesome & Ionicons for Modern Look -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-square-h fa-2xl" style="color: var(--color-teal);"></i>
+                <span class="brand-text">HMS PORTAL</span>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-label">Main</div>
+                <a class="menu-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")" 
+                   asp-controller="Dashboard" asp-action="Index">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+                
+                <div class="menu-label">Clinical</div>
+                <a class="menu-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Patients" ? "active" : "")" 
+                   asp-controller="Patients" asp-action="Index">
+                    <i class="fa-solid fa-user-injured"></i>
+                    <span class="menu-text">Patients</span>
+                </a>
+                
+                <a class="menu-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Doctors" ? "active" : "")" 
+                   asp-controller="Doctors" asp-action="Index">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span class="menu-text">Doctors</span>
+                </a>
+
+                <a class="menu-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Appointments" ? "active" : "")" 
+                   asp-controller="Appointments" asp-action="Index">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span class="menu-text">Appointments</span>
+                </a>
+
+                <a class="menu-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Schedules" ? "active" : "")" 
+                   asp-controller="Schedules" asp-action="Index">
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="menu-text">Doctor Schedules</span>
+                </a>
+                
+                <div class="menu-label">Management</div>
+                <a class="menu-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Reports" ? "active" : "")" 
+                   asp-controller="Reports" asp-action="Index">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="menu-text">Analytics Reports</span>
+                </a>
+
+                <a class="menu-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Developer" ? "active" : "")" 
+                   asp-controller="Home" asp-action="Developer">
+                    <i class="fa-solid fa-code"></i>
+                    <span class="menu-text">Developer Profile</span>
+                </a>
+            </div>
+            
+            <!-- Developer Personal Branding Badge -->
+            <div class="sidebar-developer-badge">
+                <div class="dev-name">Ahmed Mohamed Hosni</div>
+                <div class="dev-title"><i class="fa-solid fa-shield-halved text-teal me-1"></i>Lead Architect</div>
+            </div>
+        </aside>
+
+        <!-- Main Body Area -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1 class="h3 mb-0">@ViewData["Title"]</h1>
+                </div>
+                <div class="header-actions">
+                    <!-- Quick shortcuts -->
+                    <button class="btn btn-outline-glass btn-sm" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                        <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    </button>
+                    
+                    <span class="d-none d-md-inline text-muted text-sm">
+                        <i class="fa-solid fa-circle-user text-teal me-1"></i> System Admin
+                    </span>
+                </div>
+            </header>
+
+            <div class="flex-grow-1">
+                @RenderBody()
+            </div>
+
+            <!-- Footer Section -->
+            <footer class="footer-credits">
+                <div class="container-fluid d-flex justify-content-between align-items-center">
+                    <div>
+                        &copy; 2026 - Hospital Management System. All rights reserved.
+                    </div>
+                    <div>
+                        Designed & Crafted by <a asp-controller="Home" asp-action="Developer">Ahmed Mohamed Hosni</a> (أحمد محمد حسني)
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- Theme Switcher Javascript -->
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = 'light';
+            if (currentTheme === 'light') {
+                newTheme = 'dark';
+                document.getElementById('theme-icon').className = 'fa-solid fa-moon';
+            } else {
+                document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+            }
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('hms-theme', newTheme);
+            
+            // Dispatch event so charts can re-render
+            window.dispatchEvent(new Event('theme-changed'));
+        }
+
+        // Initialize Theme from storage or default to light
+        (function() {
+            const savedTheme = localStorage.getItem('hms-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.addEventListener("DOMContentLoaded", function() {
+                const icon = document.getElementById('theme-icon');
+                if(icon) {
+                    icon.className = savedTheme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+                }
+            });
+        })();
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,319 @@
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\appsettings.Development.json
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\appsettings.json
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.staticwebassets.runtime.json
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.staticwebassets.endpoints.json
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.exe
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.deps.json
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.runtimeconfig.json
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.dll
+D:\E-commerce\4. Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.pdb
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.AssemblyInfoInputs.cache
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.AssemblyInfo.cs
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.csproj.CoreCompileInputs.cache
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.RazorAssemblyInfo.cache
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.RazorAssemblyInfo.cs
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.sourcelink.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\rjimswa.dswa.cache.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\scopedcss\bundle\4. Booking&AppointmentSystem.styles.css
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\scopedcss\projectbundle\4. Booking&AppointmentSystem.bundle.scp.css
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\hbzm8utmlb-b9sayid5wm.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\ub637e9w7o-61n19gt1b8.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\oa0591d5ic-xtxxf3hu2r.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\72fmfqluv1-bqjiyaj88i.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\heyxpxisi1-c2jlpeoesf.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\e8t665x0je-erw9l3u2r3.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\qsr2u77kh4-aexeepp0ev.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\fa16mzwck0-d7shbmvgxk.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\3mfp75kkyq-ausgxo2sd3.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\2s9lw3hach-k8d9w2qqmf.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\fgeha5o5fg-cosvhxvwiu.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x8s5y5q0iw-ub07r2b239.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\3ht8rg36j2-fvhpjtyr6v.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\3mnexkjiyn-b7pk76d08c.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\4qem5safjf-fsbi9cje9m.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\7xnlbvtqcy-rzd6atqjts.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\v7ovzdnq2j-ee0r1s7dh0.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\wbxqlzky5d-dxx9fxp4il.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x6gy5sw0n3-jd9uben2k1.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\cxei3i4nps-khv3u5hwcm.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\auzekmqcxu-r4e9w2rdcm.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\621m0ewfxn-lcd1t2u6c8.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\1x4c8k42kd-c2oey78nd0.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\r97bkaqkgm-tdbxkamptv.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\67awp2iavw-j5mq2jizvt.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\atu0shzpjz-06098lyss8.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\qxphp72rz9-nvvlpmu67g.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\rqf504nbc9-s35ty4nyc5.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\8izezz8hw8-pj5nd1wqec.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\vr3q0ha7jr-46ein0sx1k.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\vt1p8dow7e-v0zj4ognzu.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\8k8o1h0xrm-37tfw0ft22.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\vqjf64itqw-hrwsygsryq.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\4q79eu87xj-pk9g2wxc8p.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x5wbxi3ipj-ft3s53vfgj.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\43sljw2u1a-6cfz1n2cew.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\dq3utdypu4-6pdc2jztkx.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\qzr3xtlkhu-493y06b0oq.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\rekl4hai8v-iovd86k7lj.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\a6gkm8b1vm-vr1egmr9el.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\bpjcnyyab8-kbrnm935zg.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\opnoo24da1-jj8uyg4cgr.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\rufd6k6aru-y7v9cxd14o.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\kkoylqdlw2-notf2xhcfb.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\2symuoe2vs-h1s4sie4z3.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\tto39lczcb-63fj8s7r0e.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\v4sp7r7jq4-0j3bgjxly4.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\xo2srjkuko-47otxtyo56.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\cge4vkgyi0-4v8eqarkd7.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\db0nhat86q-356vix0kms.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\azj7xelw3g-83jwlth58m.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x6a4h7qsf8-mrlpezrjn3.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\gg058pqsmk-lzl9nlhx6b.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\pdt463f2l1-ag7o75518u.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\bix4dub9sr-x0q3zqp4vz.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\n6yczco1mx-0i3buxo5is.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\lak19maban-o1o13a6vjx.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\5q98an99fa-ttgo8qnofa.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\16nbf2tguh-2z0ns9nrw6.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\pxu5t8y7c0-muycvpuwrr.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x4m81wcr0u-87fc7y1x7t.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\ruha0y20jv-mlv21k5csn.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\5nh1dng9zk-gzy5v0amq3.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\compressed\wp4wi9iwtm-gzy5v0amq3.gz
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.build.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.build.json.cache
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.development.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.dll
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\refint\4. Booking&AppointmentSystem.dll
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.pdb
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.genruntimeconfig.cache
+D:\E-commerce\4. Booking&AppointmentSystem\obj\Debug\net9.0\ref\4. Booking&AppointmentSystem.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\appsettings.Development.json
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.staticwebassets.endpoints.json
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\appsettings.json
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.staticwebassets.runtime.json
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.exe
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.deps.json
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.runtimeconfig.json
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\4. Booking&AppointmentSystem.pdb
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Azure.Core.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Azure.Identity.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Humanizer.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\Mono.TextTemplating.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.ClientModel.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.CodeDom.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Composition.Convention.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Composition.Hosting.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Composition.Runtime.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Composition.TypedParts.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Drawing.Common.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Memory.Data.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Runtime.Caching.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Security.Permissions.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\System.Windows.Extensions.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\E-commerce\Booking&AppointmentSystem\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.csproj.AssemblyReference.cache
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.AssemblyInfoInputs.cache
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.AssemblyInfo.cs
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.csproj.CoreCompileInputs.cache
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.RazorAssemblyInfo.cache
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.RazorAssemblyInfo.cs
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.sourcelink.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\rjimswa.dswa.cache.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\scopedcss\bundle\4. Booking&AppointmentSystem.styles.css
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\scopedcss\projectbundle\4. Booking&AppointmentSystem.bundle.scp.css
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\ub637e9w7o-61n19gt1b8.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\72fmfqluv1-bqjiyaj88i.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\heyxpxisi1-c2jlpeoesf.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\e8t665x0je-erw9l3u2r3.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\qsr2u77kh4-aexeepp0ev.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\fa16mzwck0-d7shbmvgxk.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\3mfp75kkyq-ausgxo2sd3.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\2s9lw3hach-k8d9w2qqmf.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\fgeha5o5fg-cosvhxvwiu.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x8s5y5q0iw-ub07r2b239.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\3ht8rg36j2-fvhpjtyr6v.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\3mnexkjiyn-b7pk76d08c.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\4qem5safjf-fsbi9cje9m.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\7xnlbvtqcy-rzd6atqjts.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\v7ovzdnq2j-ee0r1s7dh0.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\wbxqlzky5d-dxx9fxp4il.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x6gy5sw0n3-jd9uben2k1.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\cxei3i4nps-khv3u5hwcm.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\auzekmqcxu-r4e9w2rdcm.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\621m0ewfxn-lcd1t2u6c8.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\1x4c8k42kd-c2oey78nd0.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\r97bkaqkgm-tdbxkamptv.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\67awp2iavw-j5mq2jizvt.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\atu0shzpjz-06098lyss8.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\qxphp72rz9-nvvlpmu67g.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\rqf504nbc9-s35ty4nyc5.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\8izezz8hw8-pj5nd1wqec.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\vr3q0ha7jr-46ein0sx1k.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\vt1p8dow7e-v0zj4ognzu.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\8k8o1h0xrm-37tfw0ft22.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\vqjf64itqw-hrwsygsryq.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\4q79eu87xj-pk9g2wxc8p.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x5wbxi3ipj-ft3s53vfgj.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\43sljw2u1a-6cfz1n2cew.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\dq3utdypu4-6pdc2jztkx.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\qzr3xtlkhu-493y06b0oq.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\rekl4hai8v-iovd86k7lj.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\a6gkm8b1vm-vr1egmr9el.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\bpjcnyyab8-kbrnm935zg.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\opnoo24da1-jj8uyg4cgr.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\rufd6k6aru-y7v9cxd14o.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\kkoylqdlw2-notf2xhcfb.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\2symuoe2vs-h1s4sie4z3.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\tto39lczcb-63fj8s7r0e.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\v4sp7r7jq4-0j3bgjxly4.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\xo2srjkuko-47otxtyo56.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\cge4vkgyi0-4v8eqarkd7.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\db0nhat86q-356vix0kms.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\azj7xelw3g-83jwlth58m.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x6a4h7qsf8-mrlpezrjn3.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\gg058pqsmk-lzl9nlhx6b.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\pdt463f2l1-ag7o75518u.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\bix4dub9sr-x0q3zqp4vz.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\n6yczco1mx-0i3buxo5is.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\lak19maban-o1o13a6vjx.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\5q98an99fa-ttgo8qnofa.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\16nbf2tguh-2z0ns9nrw6.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\pxu5t8y7c0-muycvpuwrr.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\x4m81wcr0u-87fc7y1x7t.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\ruha0y20jv-mlv21k5csn.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.build.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.build.json.cache
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.development.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booki.EAA2AD5C.Up2Date
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.dll
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\refint\4. Booking&AppointmentSystem.dll
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.pdb
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\4. Booking&AppointmentSystem.genruntimeconfig.cache
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\ref\4. Booking&AppointmentSystem.dll
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\hbzm8utmlb-dxy9kswk8b.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\oa0591d5ic-4lune3ou15.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\5nh1dng9zk-gxij58zj0u.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\compressed\wp4wi9iwtm-gxij58zj0u.gz
+D:\E-commerce\Booking&AppointmentSystem\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

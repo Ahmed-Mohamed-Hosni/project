@@ -1,0 +1,192 @@
+@{
+    ViewData["Title"] = "Book Appointment";
+    var categories = ViewBag.Categories as List<Category> ?? new List<Category>();
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="text-center mb-5">
+            <span class="badge-custom badge-custom-primary mb-3">Reservations Desk</span>
+            <h1 class="text-white">Book an Appointment</h1>
+            <p class="text-secondary">Follow the steps below to reserve your service appointment instantly.</p>
+        </div>
+
+        <!-- Step indicators -->
+        <div class="step-container">
+            <div class="step-progress-line" id="stepProgress"></div>
+            <div class="booking-step active" id="step1-btn"><span class="small">1</span><span class="booking-step-label">Category</span></div>
+            <div class="booking-step" id="step2-btn"><span class="small">2</span><span class="booking-step-label">Service</span></div>
+            <div class="booking-step" id="step3-btn"><span class="small">3</span><span class="booking-step-label">Provider</span></div>
+            <div class="booking-step" id="step4-btn"><span class="small">4</span><span class="booking-step-label">Schedule</span></div>
+            <div class="booking-step" id="step5-btn"><span class="small">5</span><span class="booking-step-label">Confirm</span></div>
+        </div>
+
+        <!-- Forms Container -->
+        <form id="bookingForm" asp-controller="Booking" asp-action="Confirm" method="post" class="glass-panel mt-4">
+            
+            <!-- Hidden inputs to post -->
+            <input type="hidden" id="serviceId" name="serviceId" value="@(ViewBag.SelectedServiceId ?? "")" />
+            <input type="hidden" id="providerId" name="providerId" value="@(ViewBag.SelectedProviderId ?? "")" />
+            <input type="hidden" id="appointmentDate" name="appointmentDate" />
+            <input type="hidden" id="timeSlot" name="timeSlot" />
+
+            <!-- Step 1: Select Category -->
+            <div class="booking-step-panel animate-fade-in" id="panel-step1">
+                <h3 class="text-white h5 mb-4">Step 1: Choose a category of service</h3>
+                <div class="row g-4 justify-content-center">
+                    @foreach (var cat in categories)
+                    {
+                        <div class="col-sm-6 col-md-3">
+                            <div class="glass-card text-center cat-select-card py-4" data-category-id="@cat.Id" style="cursor:pointer;">
+                                <div class="cat-circle-icon mx-auto mb-3">
+                                    <i class="bi bi-@cat.Icon"></i>
+                                </div>
+                                <h4 class="h6 text-white mb-2">@cat.Name</h4>
+                                <p class="text-muted small mb-0 px-2" style="font-size:0.75rem;">@cat.Description</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Step 2: Select Service -->
+            <div class="booking-step-panel d-none" id="panel-step2">
+                <h3 class="text-white h5 mb-4">Step 2: Select a service</h3>
+                <div class="row g-4" id="servicesGrid">
+                    <!-- Loaded dynamically via JS -->
+                    <div class="col-12 text-center text-secondary py-5">
+                        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-top d-flex justify-content-between">
+                    <button type="button" class="btn btn-custom btn-custom-secondary prev-step-btn"><i class="bi bi-chevron-left"></i> Back</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Select Provider -->
+            <div class="booking-step-panel d-none" id="panel-step3">
+                <h3 class="text-white h5 mb-4">Step 3: Choose your specialist</h3>
+                <div class="row g-4" id="providersGrid">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+                <div class="mt-4 pt-3 border-top d-flex justify-content-between">
+                    <button type="button" class="btn btn-custom btn-custom-secondary prev-step-btn"><i class="bi bi-chevron-left"></i> Back</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Select Schedule -->
+            <div class="booking-step-panel d-none" id="panel-step4">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <h3 class="text-white h5 mb-4">Step 4: Select an appointment date</h3>
+                        <div class="glass-card p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="h6 text-white mb-0" id="calendarMonthYear">June 2026</h4>
+                                <div class="d-flex gap-1">
+                                    <button type="button" class="btn btn-sm btn-custom btn-custom-secondary px-2 py-1" id="prevMonthBtn"><i class="bi bi-chevron-left"></i></button>
+                                    <button type="button" class="btn btn-sm btn-custom btn-custom-secondary px-2 py-1" id="nextMonthBtn"><i class="bi bi-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-day-header">Su</div>
+                                <div class="calendar-day-header">Mo</div>
+                                <div class="calendar-day-header">Tu</div>
+                                <div class="calendar-day-header">We</div>
+                                <div class="calendar-day-header">Th</div>
+                                <div class="calendar-day-header">Fr</div>
+                                <div class="calendar-day-header">Sa</div>
+                            </div>
+                            <div class="calendar-grid mt-2" id="calendarDays">
+                                <!-- Calendar days loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <h3 class="text-white h5 mb-4">Available Time Slots</h3>
+                        <div class="glass-panel p-3" style="min-height: 250px;">
+                            <div id="slotsLoader" class="text-center text-secondary py-5 d-none">
+                                <div class="spinner-border text-primary" role="status"></div>
+                                <p class="small mt-2">Checking availability...</p>
+                            </div>
+                            <div id="slotsContainer" class="time-slot-grid">
+                                <div class="text-center text-muted w-100 py-5">
+                                    <i class="bi bi-calendar2-week text-primary display-6 mb-3"></i>
+                                    <p class="small mb-0">Please choose a date from the calendar to check available times.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 pt-3 border-top d-flex justify-content-between">
+                    <button type="button" class="btn btn-custom btn-custom-secondary prev-step-btn"><i class="bi bi-chevron-left"></i> Back</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Fill Details & Confirm -->
+            <div class="booking-step-panel d-none" id="panel-step5">
+                <h3 class="text-white h5 mb-4">Step 5: Fill in your contact information</h3>
+                
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="customerName" class="form-label text-white small">Your Full Name</label>
+                            <input type="text" class="form-control form-control-custom" id="customerName" name="customerName" required placeholder="John Doe" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="customerEmail" class="form-label text-white small">Email Address</label>
+                            <input type="email" class="form-control form-control-custom" id="customerEmail" name="customerEmail" required placeholder="john@example.com" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="customerPhone" class="form-label text-white small">Phone Number</label>
+                            <input type="tel" class="form-control form-control-custom" id="customerPhone" name="customerPhone" required placeholder="+1 (555) 000-0000" />
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="customerNotes" class="form-label text-white small">Special Requests or Notes (Optional)</label>
+                            <textarea class="form-control form-control-custom" id="customerNotes" name="customerNotes" rows="4" placeholder="Let us know if you have any preferences..."></textarea>
+                        </div>
+                        
+                        <!-- Summary Card -->
+                        <div class="glass-card p-3 mt-4" style="background: rgba(255,255,255,0.01);">
+                            <h4 class="h6 text-white mb-3"><i class="bi bi-info-circle text-primary me-2"></i> Booking Summary</h4>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted small">Selected Service:</span>
+                                <span class="text-white small fw-bold" id="summaryService">-</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted small">Specialist:</span>
+                                <span class="text-white small fw-bold" id="summaryProvider">-</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted small">Appointment Date:</span>
+                                <span class="text-white small fw-bold" id="summaryDate">-</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted small">Time Slot:</span>
+                                <span class="text-white small fw-bold" id="summaryTime">-</span>
+                            </div>
+                            <div class="d-flex justify-content-between pt-2 border-top mt-2">
+                                <span class="text-white fw-bold">Total Cost:</span>
+                                <span class="text-accent fw-bold fs-5" id="summaryPrice">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-top d-flex justify-content-between">
+                    <button type="button" class="btn btn-custom btn-custom-secondary prev-step-btn"><i class="bi bi-chevron-left"></i> Back</button>
+                    <button type="submit" class="btn btn-custom btn-custom-success px-4" id="confirmBookingBtn">
+                        <i class="bi bi-bookmark-check-fill me-1"></i> Confirm Appointment
+                    </button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>

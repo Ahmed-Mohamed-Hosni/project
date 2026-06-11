@@ -1,0 +1,102 @@
+@model IEnumerable<HospitalManagementSystem.Models.Patient>
+@{
+    ViewData["Title"] = "Patients Directory";
+}
+
+<div class="premium-card p-4 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <h4 class="mb-1 text-primary fw-bold">Patients Database</h4>
+            <p class="text-muted mb-0">Search, filter, and review comprehensive patient profiles.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a asp-action="Create" class="btn-grad"><i class="fa-solid fa-user-plus"></i> Register New Patient</a>
+        </div>
+    </div>
+</div>
+
+<div class="premium-card p-4 mb-4">
+    <!-- Search Filter Form -->
+    <form asp-action="Index" method="get" class="row g-3">
+        <div class="col-md-9 col-sm-8">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0 border-slate" style="border-radius: 8px 0 0 8px; border: 1px solid #cbd5e1; color: var(--text-muted);">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control form-glass border-start-0" 
+                       placeholder="Search patients by name, email, or phone number..." style="border-radius: 0 8px 8px 0;" />
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 d-grid">
+            <button type="submit" class="btn btn-outline-glass"><i class="fa-solid fa-filter me-1"></i> Filter Directory</button>
+        </div>
+    </form>
+</div>
+
+<!-- Patients List -->
+<div class="premium-card p-4">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Age / Gender</th>
+                    <th>Contact Info</th>
+                    <th>Address</th>
+                    <th>Registered On</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var patient in Model)
+                    {
+                        var age = DateTime.Today.Year - patient.DateOfBirth.Year;
+                        if (patient.DateOfBirth.Date > DateTime.Today.AddYears(-age)) age--;
+
+                        <tr>
+                            <td>
+                                <div class="fw-bold">@patient.Name</div>
+                                <div class="text-xs text-muted">ID: #P-@patient.Id.ToString("D4")</div>
+                            </td>
+                            <td>
+                                <div>@age Years Old</div>
+                                <span class="badge bg-light border text-dark text-xs">@patient.Gender</span>
+                            </td>
+                            <td>
+                                <div><i class="fa-solid fa-phone text-xs text-primary me-1"></i>@patient.Phone</div>
+                                <div class="text-xs text-muted"><i class="fa-solid fa-envelope text-xs me-1"></i>@patient.Email</div>
+                            </td>
+                            <td>
+                                <span class="text-muted text-sm">@patient.Address</span>
+                            </td>
+                            <td>
+                                <div>@patient.CreatedAt.ToString("MMMM dd, yyyy")</div>
+                            </td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-2">
+                                    <a asp-action="Details" asp-route-id="@patient.Id" class="btn btn-outline-glass btn-sm" title="Medical File">
+                                        <i class="fa-solid fa-folder-open text-primary"></i> File
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@patient.Id" class="btn btn-outline-glass btn-sm" title="Edit Demographics">
+                                        <i class="fa-solid fa-user-pen"></i> Edit
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-user-slash fa-2x mb-3 text-primary"></i>
+                            <div>No patients found matching terms.</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

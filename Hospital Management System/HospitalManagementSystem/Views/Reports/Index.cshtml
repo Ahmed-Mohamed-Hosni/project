@@ -1,0 +1,260 @@
+@model IEnumerable<HospitalManagementSystem.Models.Bill>
+@{
+    ViewData["Title"] = "Analytics & Reports Dashboard";
+}
+
+<!-- Summary Stats Header -->
+<div class="premium-card p-4 mb-4" style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.05) 0%, rgba(13, 148, 136, 0.05) 100%);">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h4 class="mb-1 text-primary fw-bold">Hospital Analytics & Billing Summary</h4>
+            <p class="text-muted mb-0">Overview of billing records, patient demographics, and department workloads. Designed by Ahmed Mohamed Hosni.</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <button onclick="window.print()" class="btn btn-outline-glass"><i class="fa-solid fa-print me-1"></i> Print Summary</button>
+        </div>
+    </div>
+</div>
+
+<!-- Financial Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-4 mb-3 mb-md-0">
+        <div class="premium-card p-4 text-center border-start border-5" style="border-left-color: var(--color-primary) !important;">
+            <div class="text-xs text-muted text-uppercase mb-1 fw-bold">Total Invoiced Amount</div>
+            <h2 class="fw-bold text-slate">$@ViewBag.TotalBilled.ToString("N2")</h2>
+            <div class="text-xs text-muted"><i class="fa-solid fa-file-invoice"></i> All generated billing logs</div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3 mb-md-0">
+        <div class="premium-card p-4 text-center border-start border-5" style="border-left-color: var(--color-teal) !important;">
+            <div class="text-xs text-muted text-uppercase mb-1 fw-bold">Total Revenue Collected</div>
+            <h2 class="fw-bold text-teal">$@ViewBag.TotalPaid.ToString("N2")</h2>
+            <div class="text-xs text-teal"><i class="fa-solid fa-circle-check"></i> Paid invoices in system</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="premium-card p-4 text-center border-start border-5" style="border-left-color: var(--color-rose) !important;">
+            <div class="text-xs text-muted text-uppercase mb-1 fw-bold">Outstanding Receivables</div>
+            <h2 class="fw-bold text-danger">$@ViewBag.TotalUnpaid.ToString("N2")</h2>
+            <div class="text-xs text-danger"><i class="fa-solid fa-circle-exclamation"></i> Unpaid invoice status</div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Grid -->
+<div class="row mb-4">
+    <!-- Doctor Load Chart -->
+    <div class="col-lg-6 mb-4">
+        <div class="premium-card p-4">
+            <h5 class="card-section-title mb-4"><i class="fa-solid fa-user-doctor"></i> Doctor Appointment Load</h5>
+            <div class="chart-container">
+                <canvas id="doctorLoadChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Specialty Load Chart -->
+    <div class="col-lg-6 mb-4">
+        <div class="premium-card p-4">
+            <h5 class="card-section-title mb-4"><i class="fa-solid fa-stethoscope"></i> Department Distribution</h5>
+            <div class="chart-container">
+                <canvas id="specialtyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue Trend Chart -->
+    <div class="col-lg-8 mb-4">
+        <div class="premium-card p-4">
+            <h5 class="card-section-title mb-4"><i class="fa-solid fa-line-chart"></i> Monthly Revenue Trends</h5>
+            <div class="chart-container">
+                <canvas id="revenueTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gender Distribution Chart -->
+    <div class="col-lg-4 mb-4">
+        <div class="premium-card p-4">
+            <h5 class="card-section-title mb-4"><i class="fa-solid fa-venus-mars"></i> Patient Demographics</h5>
+            <div class="chart-container d-flex align-items-center justify-content-center">
+                <canvas id="genderChart" style="max-height: 200px; max-width: 200px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Invoices List -->
+<div class="premium-card p-4">
+    <h5 class="card-section-title mb-4"><i class="fa-solid fa-file-invoice-dollar"></i> Recent Billing Logs</h5>
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Invoice ID</th>
+                    <th>Patient Name</th>
+                    <th>Date Billed</th>
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <th>Settlement Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var bill in Model)
+                    {
+                        <tr>
+                            <td><span class="fw-bold">#INV-@bill.Id.ToString("D5")</span></td>
+                            <td class="fw-bold text-slate">@bill.Patient?.Name</td>
+                            <td>@bill.CreatedAt.ToString("MMMM dd, yyyy")</td>
+                            <td><span class="fw-bold text-primary">$@bill.TotalAmount.ToString("N2")</span></td>
+                            <td>
+                                @if (bill.PaymentStatus == "Paid")
+                                {
+                                    <span class="badge-custom badge-paid">Paid</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-custom badge-unpaid">Unpaid</span>
+                                }
+                            </td>
+                            <td>@(bill.PaymentDate?.ToString("MMMM dd, yyyy") ?? "-")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">No billing invoices found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const getChartTheme = () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                return {
+                    text: isDark ? '#cbd5e1' : '#475569',
+                    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)'
+                };
+            };
+
+            let theme = getChartTheme();
+
+            const chartConfig = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: theme.text, font: { family: 'Plus Jakarta Sans', weight: 600 } } }
+                },
+                scales: {
+                    x: { grid: { color: theme.grid }, ticks: { color: theme.text, font: { family: 'Plus Jakarta Sans' } } },
+                    y: { grid: { color: theme.grid }, ticks: { color: theme.text, font: { family: 'Plus Jakarta Sans' } } }
+                }
+            };
+
+            // 1. Doctor Load Chart
+            const doctorLoadChart = new Chart(document.getElementById('doctorLoadChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(ViewBag.DoctorLoadLabels)),
+                    datasets: [{
+                        label: 'Appointments Handled',
+                        data: @Html.Raw(Json.Serialize(ViewBag.DoctorLoadValues)),
+                        backgroundColor: 'rgba(2, 132, 199, 0.65)',
+                        borderColor: '#0284c7',
+                        borderWidth: 1.5,
+                        borderRadius: 6
+                    }]
+                },
+                options: chartConfig
+            });
+
+            // 2. Specialty Chart
+            const specialtyChart = new Chart(document.getElementById('specialtyChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(ViewBag.SpecialtyLabels)),
+                    datasets: [{
+                        label: 'Consultation Load',
+                        data: @Html.Raw(Json.Serialize(ViewBag.SpecialtyValues)),
+                        backgroundColor: 'rgba(13, 148, 136, 0.65)',
+                        borderColor: '#0d9488',
+                        borderWidth: 1.5,
+                        borderRadius: 6
+                    }]
+                },
+                options: chartConfig
+            });
+
+            // 3. Revenue Trend Chart
+            const revenueTrendChart = new Chart(document.getElementById('revenueTrendChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(ViewBag.RevenueLabels)),
+                    datasets: [{
+                        label: 'Collected Revenue ($)',
+                        data: @Html.Raw(Json.Serialize(ViewBag.RevenueValues)),
+                        borderColor: '#0284c7',
+                        backgroundColor: 'rgba(2, 132, 199, 0.06)',
+                        fill: true,
+                        tension: 0.35,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#0d9488'
+                    }]
+                },
+                options: chartConfig
+            });
+
+            // 4. Gender Chart
+            const genderChart = new Chart(document.getElementById('genderChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(ViewBag.GenderLabels)),
+                    datasets: [{
+                        data: @Html.Raw(Json.Serialize(ViewBag.GenderValues)),
+                        backgroundColor: ['#0284c7', '#ec4899'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: theme.text, font: { family: 'Plus Jakarta Sans', size: 11, weight: 600 } }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            // Re-render when theme changes
+            window.addEventListener('theme-changed', function() {
+                const newTheme = getChartTheme();
+                
+                [doctorLoadChart, specialtyChart, revenueTrendChart].forEach(c => {
+                    c.options.plugins.legend.labels.color = newTheme.text;
+                    c.options.scales.x.grid.color = newTheme.grid;
+                    c.options.scales.y.grid.color = newTheme.grid;
+                    c.options.scales.x.ticks.color = newTheme.text;
+                    c.options.scales.y.ticks.color = newTheme.text;
+                    c.update();
+                });
+
+                genderChart.options.plugins.legend.labels.color = newTheme.text;
+                genderChart.data.datasets[0].borderColor = (document.documentElement.getAttribute('data-theme') === 'dark' ? '#1e293b' : '#ffffff');
+                genderChart.update();
+            });
+        });
+    </script>
+}

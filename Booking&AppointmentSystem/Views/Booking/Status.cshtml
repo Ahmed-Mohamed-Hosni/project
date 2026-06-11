@@ -1,0 +1,173 @@
+@model Appointment
+@{
+    ViewData["Title"] = "Appointment Status";
+    var statusBadgeClass = Model.Status switch
+    {
+        AppointmentStatus.Pending => "badge-custom-warning",
+        AppointmentStatus.Confirmed => "badge-custom-primary",
+        AppointmentStatus.Completed => "badge-custom-success",
+        AppointmentStatus.Cancelled => "badge-custom-danger",
+        _ => "badge-custom-primary"
+    };
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        
+        <div class="mb-4">
+            <a asp-controller="Booking" asp-action="Track" class="text-secondary small text-decoration-none">
+                <i class="bi bi-arrow-left"></i> Back to Lookup
+            </a>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success bg-success bg-opacity-10 border-success text-success rounded-3 mb-4 animate-fade-in" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="glass-panel p-4 mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-3" style="border-bottom: 1px solid var(--border-color);">
+                <div>
+                    <span class="text-muted small">Booking Reference Code</span>
+                    <h1 class="h3 text-white mb-0" style="font-family: monospace;">@Model.BookingCode</h1>
+                </div>
+                <div class="text-end mt-2 mt-sm-0">
+                    <span class="text-muted small d-block mb-1">Current Status</span>
+                    <span class="badge-custom @statusBadgeClass fs-6">
+                        @Model.Status
+                    </span>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <h4 class="h6 text-muted mb-2">Service Details</h4>
+                    <div class="glass-card p-3" style="background: rgba(255,255,255,0.01);">
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Service Name:</span>
+                            <span class="text-white fw-bold">@Model.Service?.Name</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Duration:</span>
+                            <span class="text-white fw-semibold">@Model.Service?.DurationMinutes mins</span>
+                        </div>
+                        <div>
+                            <span class="text-muted small d-block">Total Price:</span>
+                            <span class="text-accent fw-bold fs-5">$@Model.Service?.Price.ToString("0.00")</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4 class="h6 text-muted mb-2">Provider Details</h4>
+                    <div class="glass-card p-3" style="background: rgba(255,255,255,0.01);">
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Specialist Name:</span>
+                            <span class="text-white fw-bold">@Model.Provider?.Name</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Title:</span>
+                            <span class="text-white fw-semibold">@Model.Provider?.Title</span>
+                        </div>
+                        <div>
+                            <span class="text-muted small d-block">Contact Support:</span>
+                            <span class="text-white small">@Model.Provider?.Email</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4 class="h6 text-muted mb-2">Schedule Details</h4>
+                    <div class="glass-card p-3" style="background: rgba(255,255,255,0.01);">
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Appointment Date:</span>
+                            <span class="text-white fw-bold"><i class="bi bi-calendar-event text-primary me-2"></i> @Model.AppointmentDate.ToString("dddd, MMMM dd, yyyy")</span>
+                        </div>
+                        <div>
+                            <span class="text-muted small d-block">Scheduled Time:</span>
+                            <span class="text-white fw-bold"><i class="bi bi-clock text-primary me-2"></i> @DateTime.Today.Add(Model.TimeSlot).ToString("hh:mm tt")</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4 class="h6 text-muted mb-2">Customer Profile</h4>
+                    <div class="glass-card p-3" style="background: rgba(255,255,255,0.01);">
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Name:</span>
+                            <span class="text-white fw-semibold">@Model.CustomerName</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Phone:</span>
+                            <span class="text-white">@Model.CustomerPhone</span>
+                        </div>
+                        <div>
+                            <span class="text-muted small d-block">Email:</span>
+                            <span class="text-white">@Model.CustomerEmail</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.CustomerNotes))
+            {
+                <div class="mb-4">
+                    <h4 class="h6 text-muted mb-2">Special Notes</h4>
+                    <div class="glass-card p-3 text-secondary small" style="background: rgba(255,255,255,0.01);">
+                        @Model.CustomerNotes
+                    </div>
+                </div>
+            }
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 border-top" style="border-color: var(--border-color);">
+                <span class="text-muted small">Registered on @Model.CreatedAt.ToLocalTime().ToString("g")</span>
+                
+                @if (Model.Status != AppointmentStatus.Cancelled && Model.Status != AppointmentStatus.Completed)
+                {
+                    <button type="button" class="btn btn-custom btn-custom-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                        <i class="bi bi-x-circle me-1"></i> Cancel Appointment
+                    </button>
+                }
+            </div>
+        </div>
+        
+        <!-- Developers watermark -->
+        <div class="text-center mt-5 text-muted small">
+            Designed and engineered by Ahmed Mohamed Hosni (أحمد محمد حسني)
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Confirmation Modal -->
+@if (Model.Status != AppointmentStatus.Cancelled && Model.Status != AppointmentStatus.Completed)
+{
+    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom animate-fade-in">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title text-white" id="cancelModalLabel">Cancel Appointment?</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-secondary">
+                        Are you sure you want to cancel your scheduled appointment? This action is permanent and cannot be undone.
+                    </p>
+                    <div class="glass-card p-2 bg-danger bg-opacity-10 border-danger border-opacity-20 text-danger small">
+                        <i class="bi bi-exclamation-circle me-1"></i> Cancelling slot: @Model.AppointmentDate.ToString("MMMM dd") at @DateTime.Today.Add(Model.TimeSlot).ToString("hh:mm tt")
+                    </div>
+                </div>
+                <div class="modal-footer modal-footer-custom">
+                    <button type="button" class="btn btn-custom btn-custom-secondary" data-bs-dismiss="modal">Close</button>
+                    <form asp-controller="Booking" asp-action="Cancel" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <input type="hidden" name="code" value="@Model.BookingCode" />
+                        <button type="submit" class="btn btn-custom btn-custom-danger">Yes, Cancel Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,117 @@
+@model Appointment
+@{
+    ViewData["Title"] = "Booking Confirmed";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7 text-center">
+        <!-- Success Animation -->
+        <div class="success-checkmark">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark-circle" cx="26" cy="26" r="25" />
+                <path class="checkmark-check" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            </svg>
+        </div>
+
+        <span class="badge-custom badge-custom-success mb-2">Reservation Confirmed</span>
+        <h1 class="text-white h2 mb-4">Your appointment is scheduled!</h1>
+        <p class="text-secondary mb-5">
+            Thank you, @Model.CustomerName. We have received your booking. We will review it shortly. Below are your booking details.
+        </p>
+
+        <!-- Booking Code Card -->
+        <div class="glass-panel text-center mb-5 py-4" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%); border-color: rgba(99, 102, 241, 0.25);">
+            <p class="text-muted small mb-2 text-uppercase fw-semibold" style="letter-spacing: 0.05em;">Your Booking Reference Code</p>
+            <div class="d-flex align-items-center justify-content-center gap-3">
+                <span class="fs-2 fw-bold text-white" id="bookingReferenceCode" style="font-family: monospace; letter-spacing: 2px;">@Model.BookingCode</span>
+                <button class="btn btn-sm btn-custom btn-custom-secondary py-2 px-3" onclick="copyBookingCode()" title="Copy Code">
+                    <i class="bi bi-clipboard"></i> Copy
+                </button>
+            </div>
+            <p class="text-muted small mt-2 mb-0">Save this code to check booking status or cancel later.</p>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="glass-card text-start mb-5 p-4">
+            <h3 class="h5 text-white mb-4 pb-2" style="border-bottom: 1px solid var(--border-color);">
+                <i class="bi bi-receipt text-primary me-2"></i> Ticket Details
+            </h3>
+            
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <span class="text-muted small d-block">Service Name</span>
+                    <span class="text-white fw-bold">@Model.Service?.Name</span>
+                </div>
+                <div class="col-sm-6">
+                    <span class="text-muted small d-block">Assigned Specialist</span>
+                    <span class="text-white fw-bold">@Model.Provider?.Name</span>
+                </div>
+                <div class="col-sm-6">
+                    <span class="text-muted small d-block">Appointment Date</span>
+                    <span class="text-white fw-bold">@Model.AppointmentDate.ToString("MMMM dd, yyyy")</span>
+                </div>
+                <div class="col-sm-6">
+                    <span class="text-muted small d-block">Scheduled Time</span>
+                    <span class="text-white fw-bold">@DateTime.Today.Add(Model.TimeSlot).ToString("hh:mm tt")</span>
+                </div>
+                <div class="col-sm-6">
+                    <span class="text-muted small d-block">Duration</span>
+                    <span class="text-white fw-bold">@Model.Service?.DurationMinutes mins</span>
+                </div>
+                <div class="col-sm-6">
+                    <span class="text-muted small d-block">Total Cost</span>
+                    <span class="text-accent fw-bold fs-5">$@Model.Service?.Price.ToString("0.00")</span>
+                </div>
+                
+                <div class="col-12 pt-3" style="border-top: 1px dashed var(--border-color);">
+                    <div class="row g-2">
+                        <div class="col-sm-4">
+                            <span class="text-muted small d-block">Name:</span>
+                            <span class="text-white small">@Model.CustomerName</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="text-muted small d-block">Phone:</span>
+                            <span class="text-white small">@Model.CustomerPhone</span>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="text-muted small d-block">Email:</span>
+                            <span class="text-white small">@Model.CustomerEmail</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <button onclick="window.print()" class="btn btn-custom btn-custom-secondary btn-lg">
+                <i class="bi bi-printer me-2"></i> Print Ticket
+            </button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-custom btn-custom-primary btn-lg">
+                <i class="bi bi-house me-2"></i> Return Home
+            </a>
+        </div>
+        
+        <hr class="my-5" style="border-color: var(--border-color);" />
+        
+        <!-- Dev Signature -->
+        <div class="text-center">
+            <p class="text-muted small mb-0">Booking Application Engine designed by</p>
+            <p class="text-white fw-bold mb-0">Ahmed Mohamed Hosni</p>
+            <span class="text-secondary small" style="font-size:0.75rem;">أحمد محمد حسني</span>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function copyBookingCode() {
+            var codeText = document.getElementById("bookingReferenceCode").innerText;
+            navigator.clipboard.writeText(codeText).then(function() {
+                alert("Booking code copied to clipboard: " + codeText);
+            }, function(err) {
+                console.error("Could not copy text: ", err);
+            });
+        }
+    </script>
+}

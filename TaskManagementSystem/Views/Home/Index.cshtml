@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center py-5 mt-5">
+    <h1 class="display-3 fw-bold mb-4 text-dark">
+        Manage Tasks. Empower Teams.
+    </h1>
+    <p class="lead text-muted mb-5 mx-auto" style="max-width: 700px;">
+        TaskFlow is a premium, beautifully crafted workflow tool that helps you organize projects, manage teams, and collaborate effortlessly in a clean and distraction-free environment.
+    </p>
+    
+    <div class="d-flex justify-content-center gap-3">
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <a href="@Url.Action("Index", "Board")" class="btn btn-primary-custom px-5 py-3 fs-5 text-decoration-none shadow-sm"><i class="bi bi-grid-1x2"></i> Go to Workspace</a>
+        }
+        else
+        {
+            <a href="/Identity/Account/Register" class="btn btn-primary-custom px-5 py-3 fs-5 text-decoration-none shadow-sm">Get Started Free</a>
+            <a href="/Identity/Account/Login" class="btn btn-outline-secondary px-5 py-3 fs-5 bg-white">Log In</a>
+        }
+    </div>
+</div>
+
+<div class="container mt-5 pt-5 border-top">
+    <div class="row g-4 text-center mt-2">
+        <div class="col-md-4">
+            <div class="bg-white p-5 h-100 rounded-3 shadow-sm border border-light">
+                <i class="bi bi-layout-wtf text-primary mb-3" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold mb-3">Clean Interface</h3>
+                <p class="text-muted">A bright, intuitive layout designed to look like modern productivity tools. Focus on your tasks without visual clutter.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bg-white p-5 h-100 rounded-3 shadow-sm border border-light">
+                <i class="bi bi-arrows-move text-primary mb-3" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold mb-3">Drag & Drop</h3>
+                <p class="text-muted">Seamlessly move cards between lists to update task statuses instantly, just like Trello.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bg-white p-5 h-100 rounded-3 shadow-sm border border-light">
+                <i class="bi bi-people text-primary mb-3" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold mb-3">Collaboration</h3>
+                <p class="text-muted">Built with ASP.NET Core Identity to allow secure logins, team management, and secure task assignment.</p>
+            </div>
+        </div>
+    </div>
+</div>

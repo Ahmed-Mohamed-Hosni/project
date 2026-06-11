@@ -1,0 +1,273 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    var lowStockProducts = ViewBag.LowStockProducts as List<InventoryManagementSystem.Models.Product>;
+    var recentSales = ViewBag.RecentSales as List<InventoryManagementSystem.Models.Sale>;
+}
+
+<div class="content-header">
+    <div class="page-title-area">
+        <h1>Welcome Back, Ahmed!</h1>
+        <p>Here is an overview of your inventory status, sales metrics, and stock alerts</p>
+    </div>
+    <div class="header-actions">
+        <a asp-controller="Sale" asp-action="Create" class="btn-premium">
+            <i class="bi bi-cart3"></i> Open POS Terminal
+        </a>
+    </div>
+</div>
+
+<!-- Dashboard Metric Cards Grid -->
+<div class="dashboard-grid">
+    <div class="stat-card primary">
+        <div class="stat-info">
+            <span class="stat-label">Total Products</span>
+            <span class="stat-value">@ViewBag.TotalProducts</span>
+            <span class="stat-desc">Active catalog items</span>
+        </div>
+        <div class="stat-icon-wrapper">
+            <i class="bi bi-box-seam"></i>
+        </div>
+    </div>
+    
+    <div class="stat-card success">
+        <div class="stat-info">
+            <span class="stat-label">Stock Valuation</span>
+            <span class="stat-value">$@ViewBag.TotalStockValue.ToString("N2")</span>
+            <span class="stat-desc">Asset value at cost</span>
+        </div>
+        <div class="stat-icon-wrapper">
+            <i class="bi bi-currency-dollar"></i>
+        </div>
+    </div>
+
+    <div class="stat-card secondary">
+        <div class="stat-info">
+            <span class="stat-label">Sales (Current Month)</span>
+            <span class="stat-value">$@ViewBag.SalesThisMonth.ToString("N2")</span>
+            <span class="stat-desc">Monthly transaction volume</span>
+        </div>
+        <div class="stat-icon-wrapper">
+            <i class="bi bi-graph-up-arrow"></i>
+        </div>
+    </div>
+
+    <div class="stat-card warning">
+        <div class="stat-info">
+            <span class="stat-label">Low Stock Alerts</span>
+            <span class="stat-value">@ViewBag.LowStockCount</span>
+            <span class="stat-desc">Items requiring reorder</span>
+        </div>
+        <div class="stat-icon-wrapper">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Analytics Charts Section -->
+<div class="charts-container mt-4 animate-fade-in">
+    <!-- Sales Revenue Trend -->
+    <div class="premium-panel">
+        <div class="panel-header">
+            <div class="panel-title"><i class="bi bi-activity"></i> Monthly Revenue Trend</div>
+        </div>
+        <div style="position: relative; height: 320px; width: 100%;">
+            <canvas id="revenueTrendChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Category Distribution -->
+    <div class="premium-panel">
+        <div class="panel-header">
+            <div class="panel-title"><i class="bi bi-pie-chart-fill"></i> Categories</div>
+        </div>
+        <div style="position: relative; height: 320px; width: 100%;">
+            <canvas id="categoryBreakdownChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Critical Lists Grid -->
+<div class="row g-4 mt-2 animate-fade-in">
+    <!-- Low Stock Alert log -->
+    <div class="col-lg-5">
+        <div class="premium-panel h-100">
+            <div class="panel-header">
+                <div class="panel-title text-warning"><i class="bi bi-bell-fill"></i> Low Stock Warnings</div>
+                <a asp-controller="Product" asp-action="Index" asp-route-lowStock="true" class="btn-premium-secondary py-1 px-3" style="font-size: 0.8rem;">View All</a>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-borderless align-middle" style="font-size: 0.9rem;">
+                    <tbody>
+                        @if (lowStockProducts == null || !lowStockProducts.Any())
+                        {
+                            <tr>
+                                <td class="text-center py-5 text-muted">
+                                    <i class="bi bi-check-circle text-success" style="font-size: 2rem; display: block; margin-bottom: 8px;"></i>
+                                    All inventory items are sufficiently stocked!
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var prod in lowStockProducts)
+                            {
+                                <tr class="border-bottom border-light">
+                                    <td class="py-3">
+                                        <div class="fw-bold text-dark">@prod.Name</div>
+                                        <small class="text-muted">SKU: @prod.SKU</small>
+                                    </td>
+                                    <td class="py-3 text-center">
+                                        <span class="badge bg-light text-danger border border-danger-subtle px-3 py-1 font-monospace">@prod.StockQuantity Left</span>
+                                    </td>
+                                    <td class="py-3 text-end">
+                                        <a asp-controller="Product" asp-action="AdjustStock" asp-route-id="@prod.Id" class="btn-premium py-1 px-3" style="font-size: 0.75rem;">
+                                            Restock
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Billings/Invoices -->
+    <div class="col-lg-7">
+        <div class="premium-panel h-100">
+            <div class="panel-header">
+                <div class="panel-title"><i class="bi bi-clock-history"></i> Recent Transactions</div>
+                <a asp-controller="Sale" asp-action="Index" class="btn-premium-secondary py-1 px-3" style="font-size: 0.8rem;">View All</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table-premium" style="font-size: 0.9rem;">
+                    <thead>
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Customer</th>
+                            <th style="text-align: right;">Total Amount</th>
+                            <th style="text-align: right;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (recentSales == null || !recentSales.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center py-5 text-muted">
+                                    No sales history recorded yet. Open POS terminal to sell.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var sale in recentSales)
+                            {
+                                <tr>
+                                    <td><strong style="color: var(--primary);">@sale.InvoiceNumber</strong></td>
+                                    <td>@sale.CustomerName</td>
+                                    <td style="text-align: right; font-weight: 700; color: var(--text-main);">$@sale.TotalAmount.ToString("F2")</td>
+                                    <td class="text-secondary" style="text-align: right; font-size: 0.8rem;">@sale.SaleDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Data passed from ViewBag
+        const salesChartLabels = @Html.Raw(Json.Serialize(ViewBag.SalesChartLabels));
+        const salesChartData = @Html.Raw(Json.Serialize(ViewBag.SalesChartData));
+        const categoryLabels = @Html.Raw(Json.Serialize(ViewBag.CategoryLabels));
+        const categoryData = @Html.Raw(Json.Serialize(ViewBag.CategoryData));
+
+        // 1. Line Chart (Revenue Trend)
+        const ctxRevenue = document.getElementById('revenueTrendChart').getContext('2d');
+        
+        // Gradient fill
+        let revenueGradient = ctxRevenue.createLinearGradient(0, 0, 0, 300);
+        revenueGradient.addColorStop(0, 'rgba(99, 102, 241, 0.45)');
+        revenueGradient.addColorStop(1, 'rgba(99, 102, 241, 0.01)');
+
+        new Chart(ctxRevenue, {
+            type: 'line',
+            data: {
+                labels: salesChartLabels,
+                datasets: [{
+                    label: 'Revenue ($)',
+                    data: salesChartData,
+                    borderColor: '#6366f1',
+                    borderWidth: 3,
+                    backgroundColor: revenueGradient,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#6366f1',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        grid: { borderDash: [5, 5] },
+                        ticks: {
+                            callback: function(value) { return '$' + value; }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. Doughnut Chart (Categories breakdown)
+        const ctxCategory = document.getElementById('categoryBreakdownChart').getContext('2d');
+        new Chart(ctxCategory, {
+            type: 'doughnut',
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    data: categoryData,
+                    backgroundColor: [
+                        '#6366f1', // Indigo
+                        '#0ea5e9', // Sky Blue
+                        '#10b981', // Emerald
+                        '#f59e0b', // Amber
+                        '#ef4444'  // Rose
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: { family: 'Outfit', size: 12 }
+                        }
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+    </script>
+}

@@ -1,0 +1,251 @@
+@model HospitalManagementSystem.Models.Patient
+@{
+    ViewData["Title"] = "Patient Profile Details";
+    var age = DateTime.Today.Year - Model.DateOfBirth.Year;
+    if (Model.DateOfBirth.Date > DateTime.Today.AddYears(-age)) age--;
+}
+
+<!-- Patient Summary Banner -->
+<div class="premium-card p-4 mb-4" style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.05) 0%, rgba(13, 148, 136, 0.05) 100%);">
+    <div class="row align-items-center">
+        <div class="col-lg-8 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center gap-3">
+                <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center" 
+                     style="width: 64px; height: 64px; background: var(--gradient-primary); color: #ffffff; font-size: 1.5rem; font-weight: 800;">
+                    @Model.Name.Substring(0, 1).ToUpper()
+                </div>
+                <div>
+                    <h4 class="mb-1 fw-bold text-primary">@Model.Name</h4>
+                    <p class="mb-0 text-muted">
+                        Patient ID: <strong class="text-slate">#P-@Model.Id.ToString("D4")</strong> &nbsp;|&nbsp; 
+                        Age: <strong class="text-slate">@age</strong> &nbsp;|&nbsp; 
+                        Gender: <strong class="text-slate">@Model.Gender</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-glass btn-sm"><i class="fa-solid fa-user-pen me-1"></i> Edit Profile</a>
+            <a asp-controller="Appointments" asp-action="Create" class="btn-grad btn-sm ms-2"><i class="fa-solid fa-calendar-plus me-1"></i> Book Visit</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Demographic Data Card -->
+    <div class="col-md-4 mb-4">
+        <div class="premium-card p-4 h-100">
+            <h5 class="card-section-title"><i class="fa-solid fa-address-card"></i> Contact Details</h5>
+            
+            <div class="mb-3">
+                <span class="text-muted d-block text-xs text-uppercase" style="letter-spacing: 0.5px;">Email Address</span>
+                <span class="fw-bold">@Model.Email</span>
+            </div>
+            <div class="mb-3">
+                <span class="text-muted d-block text-xs text-uppercase" style="letter-spacing: 0.5px;">Phone Number</span>
+                <span class="fw-bold text-primary">@Model.Phone</span>
+            </div>
+            <div class="mb-3">
+                <span class="text-muted d-block text-xs text-uppercase" style="letter-spacing: 0.5px;">Date of Birth</span>
+                <span>@Model.DateOfBirth.ToString("MMMM dd, yyyy")</span>
+            </div>
+            <div class="mb-3">
+                <span class="text-muted d-block text-xs text-uppercase" style="letter-spacing: 0.5px;">Residential Address</span>
+                <span>@Model.Address</span>
+            </div>
+            <div class="mb-3">
+                <span class="text-muted d-block text-xs text-uppercase" style="letter-spacing: 0.5px;">System Registered</span>
+                <span class="text-muted">@Model.CreatedAt.ToString("g")</span>
+            </div>
+
+            <hr style="border-color: var(--border-color);" />
+
+            <h5 class="card-section-title mt-4"><i class="fa-solid fa-notes-medical text-rose"></i> Background History</h5>
+            <p class="text-sm text-slate" style="white-space: pre-wrap;">@(string.IsNullOrEmpty(Model.MedicalHistory) ? "No chronic condition logs registered." : Model.MedicalHistory)</p>
+        </div>
+    </div>
+
+    <!-- Medical History Tabs -->
+    <div class="col-md-8 mb-4">
+        <div class="premium-card p-4 h-100">
+            <div class="custom-tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'clinicalRecords')"><i class="fa-solid fa-file-medical-alt me-1"></i> Clinical Diagnoses (@Model.MedicalRecords.Count)</button>
+                <button class="tab-btn" onclick="switchTab(event, 'appointments')"><i class="fa-solid fa-calendar-check me-1"></i> Visit Logs (@Model.Appointments.Count)</button>
+                <button class="tab-btn" onclick="switchTab(event, 'bills')"><i class="fa-solid fa-receipt me-1"></i> Invoices & billing (@Model.Bills.Count)</button>
+            </div>
+
+            <!-- TAB 1: Clinical Records -->
+            <div id="clinicalRecords" class="tab-pane active">
+                @if (Model.MedicalRecords != null && Model.MedicalRecords.Any())
+                {
+                    @foreach (var record in Model.MedicalRecords.OrderByDescending(r => r.RecordDate))
+                    {
+                        <div class="premium-card p-4 mb-3" style="background-color: #f8fafc;">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="text-primary mb-0 fw-bold"><i class="fa-solid fa-prescription-bottle-medical me-1"></i> @record.Diagnosis</h6>
+                                <span class="text-muted text-xs"><i class="fa-solid fa-calendar-day me-1"></i> @record.RecordDate.ToString("MMMM dd, yyyy")</span>
+                            </div>
+                            <div class="text-xs text-muted mb-3">Consulting Doctor: <strong>@record.Doctor?.Name</strong> (@record.Doctor?.Specialization)</div>
+                            
+                            <div class="mb-3">
+                                <span class="d-block text-xs text-muted fw-bold text-uppercase">Treatment Directive:</span>
+                                <p class="mb-0 text-sm text-slate">@record.Treatment</p>
+                            </div>
+                            
+                            @if (!string.IsNullOrEmpty(record.PrescribedMedications))
+                            {
+                                <div class="mb-3">
+                                    <span class="d-block text-xs text-muted fw-bold text-uppercase">Prescribed Medications:</span>
+                                    <span class="badge bg-light border border-slate text-dark py-2 px-3 text-sm mt-1 fw-bold"><i class="fa-solid fa-pills text-primary me-1"></i> @record.PrescribedMedications</span>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(record.Notes))
+                            {
+                                <div class="p-2 rounded mt-2 text-xs" style="background-color: #f1f5f9; border-left: 2px solid var(--color-purple);">
+                                    <span class="text-muted fw-bold">Doctor Notes:</span> @record.Notes
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="fa-solid fa-folder-open fa-2x mb-3 text-primary"></i>
+                        <div>No diagnostic records logged for this patient yet.</div>
+                    </div>
+                }
+            </div>
+
+            <!-- TAB 2: Appointments -->
+            <div id="appointments" class="tab-pane">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Date / Time</th>
+                                <th>Consultation Notes</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Appointments != null && Model.Appointments.Any())
+                            {
+                                @foreach (var app in Model.Appointments.OrderByDescending(a => a.AppointmentDate))
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">@app.Doctor?.Name</div>
+                                            <span class="text-xs text-muted">@app.Doctor?.Specialization</span>
+                                        </td>
+                                        <td>
+                                            <div>@app.AppointmentDate.ToString("MMMM dd, yyyy")</div>
+                                            <div class="text-xs text-primary fw-bold">@app.TimeSlot.ToString(@"hh\:mm")</div>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted text-sm">@(string.IsNullOrEmpty(app.Notes) ? "-" : app.Notes)</span>
+                                        </td>
+                                        <td>
+                                            @if (app.Status == "Pending")
+                                            {
+                                                <span class="badge-custom badge-pending">@app.Status</span>
+                                            }
+                                            else if (app.Status == "Approved")
+                                            {
+                                                <span class="badge-custom badge-approved">@app.Status</span>
+                                            }
+                                            else if (app.Status == "Completed")
+                                            {
+                                                <span class="badge-custom badge-completed">@app.Status</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge-custom badge-cancelled">@app.Status</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center py-5 text-muted">No appointments booked.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: Bills -->
+            <div id="bills" class="tab-pane">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Total Billed</th>
+                                <th>Issued On</th>
+                                <th>Paid Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Bills != null && Model.Bills.Any())
+                            {
+                                @foreach (var bill in Model.Bills.OrderByDescending(b => b.CreatedAt))
+                                {
+                                    <tr>
+                                        <td>
+                                            <span class="fw-bold">#INV-@bill.Id.ToString("D5")</span>
+                                        </td>
+                                        <td>
+                                            <span class="fw-bold text-primary">$@bill.TotalAmount.ToString("N2")</span>
+                                        </td>
+                                        <td>@bill.CreatedAt.ToString("MMMM dd, yyyy")</td>
+                                        <td>@(bill.PaymentDate?.ToString("MMMM dd, yyyy") ?? "-")</td>
+                                        <td>
+                                            @if (bill.PaymentStatus == "Paid")
+                                            {
+                                                <span class="badge-custom badge-paid">Paid</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge-custom badge-unpaid">Unpaid</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center py-5 text-muted">No invoices generated.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function switchTab(evt, tabId) {
+            const panes = document.getElementsByClassName("tab-pane");
+            for (let i = 0; i < panes.length; i++) {
+                panes[i].classList.remove("active");
+            }
+            const btns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].classList.remove("active");
+            }
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+}

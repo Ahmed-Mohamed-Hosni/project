@@ -1,0 +1,75 @@
+@model HospitalManagementSystem.Models.Doctor
+@{
+    ViewData["Title"] = "Edit Doctor Details";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="premium-card p-5">
+            <div class="mb-4">
+                <a asp-action="Index" class="btn btn-outline-glass btn-sm mb-3"><i class="fa-solid fa-arrow-left me-1"></i> Back to Directory</a>
+                <h4 class="font-weight-bold text-primary"><i class="fa-solid fa-user-pen me-2"></i> Edit Doctor Details</h4>
+                <p class="text-muted">Update contact details, medical specialty category, or clinical credentials bio.</p>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row g-3">
+                    <!-- Name -->
+                    <div class="col-md-6">
+                        <label asp-for="Name" class="form-label form-label-custom">Full Name</label>
+                        <input asp-for="Name" class="form-control form-glass" required />
+                        <span asp-validation-for="Name" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Specialty -->
+                    <div class="col-md-6">
+                        <label asp-for="Specialization" class="form-label form-label-custom">Medical Specialization</label>
+                        <input asp-for="Specialization" class="form-control form-glass" required />
+                        <span asp-validation-for="Specialization" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label form-label-custom">Email Address</label>
+                        <input asp-for="Email" type="email" class="form-control form-glass" required />
+                        <span asp-validation-for="Email" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label form-label-custom">Phone Number</label>
+                        <input asp-for="Phone" class="form-control form-glass" required />
+                        <span asp-validation-for="Phone" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Profile Picture URL -->
+                    <div class="col-12">
+                        <label asp-for="ProfilePictureUrl" class="form-label form-label-custom">Profile Picture URL</label>
+                        <input asp-for="ProfilePictureUrl" class="form-control form-glass" />
+                        <span asp-validation-for="ProfilePictureUrl" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Biography -->
+                    <div class="col-12">
+                        <label asp-for="Biography" class="form-label form-label-custom">Biography & Credentials</label>
+                        <textarea asp-for="Biography" class="form-control form-glass" rows="4"></textarea>
+                        <span asp-validation-for="Biography" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-12 text-end mt-4">
+                        <a asp-action="Index" class="btn btn-outline-glass me-2">Cancel</a>
+                        <button type="submit" class="btn-grad"><i class="fa-solid fa-save me-1"></i> Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

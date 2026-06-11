@@ -1,0 +1,149 @@
+@model HospitalManagementSystem.Models.Appointment
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="premium-card p-5">
+            <div class="mb-4">
+                <a asp-action="Index" class="btn btn-outline-glass btn-sm mb-3"><i class="fa-solid fa-arrow-left me-1"></i> Back to Schedule</a>
+                <h4 class="font-weight-bold text-primary"><i class="fa-solid fa-calendar-plus me-2"></i> Book Consultation Visit</h4>
+                <p class="text-muted">Select patient, doctor, and date. Time slots will load dynamically from database scheduling blocks.</p>
+            </div>
+
+            <form asp-action="Create" method="post" id="bookingForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="TimeSlot" id="selectedTimeSlot" />
+
+                <div class="row g-4">
+                    <!-- Select Patient -->
+                    <div class="col-md-6">
+                        <label asp-for="PatientId" class="form-label form-label-custom">Select Patient</label>
+                        <select asp-for="PatientId" asp-items="ViewBag.Patients" class="form-select form-glass" required>
+                            <option value="">-- Choose Patient --</option>
+                        </select>
+                        <span asp-validation-for="PatientId" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Select Doctor -->
+                    <div class="col-md-6">
+                        <label asp-for="DoctorId" class="form-label form-label-custom">Select Doctor</label>
+                        <select asp-for="DoctorId" asp-items="ViewBag.Doctors" id="doctorSelect" class="form-select form-glass" required>
+                            <option value="">-- Choose Doctor --</option>
+                        </select>
+                        <span asp-validation-for="DoctorId" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Date Of Appointment -->
+                    <div class="col-md-6">
+                        <label asp-for="AppointmentDate" class="form-label form-label-custom">Appointment Date</label>
+                        <input asp-for="AppointmentDate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" id="dateInput" class="form-control form-glass" required />
+                        <span asp-validation-for="AppointmentDate" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Dynamic Time Slots Loader -->
+                    <div class="col-md-6">
+                        <label class="form-label form-label-custom d-block">Available Time Slots</label>
+                        <div id="slots-placeholder" class="text-muted text-sm py-2">
+                            Select doctor and date to view available time slots.
+                        </div>
+                        <div id="slots-loader" class="spinner-border spinner-border-sm text-primary d-none" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div id="slots-container" class="d-flex flex-wrap gap-2"></div>
+                        <span asp-validation-for="TimeSlot" class="text-danger text-xs d-block mt-2"></span>
+                    </div>
+
+                    <!-- Clinical Consultation Notes -->
+                    <div class="col-12">
+                        <label asp-for="Notes" class="form-label form-label-custom">Pre-Consultation Notes / Symptoms</label>
+                        <textarea asp-for="Notes" class="form-control form-glass" rows="3" placeholder="Briefly describe symptoms or purpose of the appointment..."></textarea>
+                        <span asp-validation-for="Notes" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-12 text-end mt-4">
+                        <a asp-action="Index" class="btn btn-outline-glass me-2">Cancel</a>
+                        <button type="submit" class="btn-grad" id="submitBtn" disabled><i class="fa-solid fa-calendar-check me-1"></i> Book Appointment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function() {
+            const doctorSelect = $('#doctorSelect');
+            const dateInput = $('#dateInput');
+            const slotsContainer = $('#slots-container');
+            const slotsPlaceholder = $('#slots-placeholder');
+            const slotsLoader = $('#slots-loader');
+            const selectedTimeSlot = $('#selectedTimeSlot');
+            const submitBtn = $('#submitBtn');
+
+            function fetchSlots() {
+                const doctorId = doctorSelect.val();
+                const date = dateInput.val();
+
+                slotsContainer.empty();
+                selectedTimeSlot.val('');
+                submitBtn.attr('disabled', true);
+
+                if (!doctorId || !date) {
+                    slotsPlaceholder.removeClass('d-none').text('Select doctor and date to view available time slots.');
+                    return;
+                }
+
+                slotsPlaceholder.addClass('d-none');
+                slotsLoader.removeClass('d-none');
+
+                $.ajax({
+                    url: '@Url.Action("GetAvailableSlots", "Appointments")',
+                    type: 'GET',
+                    data: { doctorId: doctorId, date: date },
+                    success: function(response) {
+                        slotsLoader.addClass('d-none');
+                        if (response.success) {
+                            if (response.slots && response.slots.length > 0) {
+                                slotsPlaceholder.addClass('d-none');
+                                response.slots.forEach(function(slot) {
+                                    const chip = $('<button type="button" class="slot-chip">' + slot + '</button>');
+                                    chip.click(function() {
+                                        $('.slot-chip').removeClass('active-chip');
+                                        chip.addClass('active-chip');
+                                        selectedTimeSlot.val(slot);
+                                        submitBtn.removeAttr('disabled');
+                                    });
+                                    slotsContainer.append(chip);
+                                });
+                            } else {
+                                slotsPlaceholder.removeClass('d-none').text('Doctor is not available or fully booked on this day of the week.');
+                            }
+                        } else {
+                            slotsPlaceholder.removeClass('d-none').text('Error fetching slots: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        slotsLoader.addClass('d-none');
+                        slotsPlaceholder.removeClass('d-none').text('System error retrieving availability schedules.');
+                    }
+                });
+            }
+
+            doctorSelect.change(fetchSlots);
+            dateInput.change(fetchSlots);
+
+            $('#bookingForm').submit(function(e) {
+                if (!selectedTimeSlot.val()) {
+                    alert('Please select a time slot!');
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+}

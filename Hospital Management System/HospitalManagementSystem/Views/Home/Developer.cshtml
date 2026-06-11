@@ -1,0 +1,139 @@
+@{
+    ViewData["Title"] = "Developer Hub";
+}
+
+<div class="row justify-content-center">
+    <div class="col-xl-9 col-lg-10">
+        <!-- Developer Profile Card -->
+        <div class="premium-card p-5 mb-4 text-center text-md-start" 
+             style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.05) 0%, rgba(13, 148, 136, 0.05) 100%); position: relative; overflow: hidden;">
+            <div class="position-absolute end-0 top-0 p-3 opacity-10 d-none d-md-block" style="font-size: 8rem; color: var(--color-primary); pointer-events: none;">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            
+            <div class="row align-items-center">
+                <div class="col-md-3 mb-4 mb-md-0 text-center">
+                    <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center mx-auto" 
+                         style="width: 130px; height: 130px; background: var(--gradient-primary); color: #ffffff; font-size: 3rem; font-weight: 800; border: 4px solid #ffffff; box-shadow: var(--shadow-glow);">
+                        AM
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <span class="badge badge-custom badge-approved mb-2"><i class="fa-solid fa-shield-halved text-primary"></i> Lead Software Engineer</span>
+                    <h2 class="fw-bold text-primary mb-1">Ahmed Mohamed Hosni</h2>
+                    <h4 class="text-slate mb-3">أحمد محمد حسني</h4>
+                    <p class="text-muted leading-relaxed mb-4">
+                        Full-Stack Software Architect specializing in designing enterprise systems, highly-scalable cloud architectures, and next-generation medical software solutions. Builder of this state-of-the-art **Hospital Management System**.
+                    </p>
+                    
+                    <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
+                        <a href="mailto:ahmed.hosni@hospital.com" class="btn btn-outline-glass btn-sm"><i class="fa-solid fa-envelope text-primary"></i> Email Ahmed</a>
+                        <a href="tel:+201012345678" class="btn btn-outline-glass btn-sm"><i class="fa-solid fa-phone"></i> Contact Developer</a>
+                        <span class="btn btn-sm bg-light border border-slate text-dark"><i class="fa-solid fa-location-dot text-danger"></i> Cairo, Egypt</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- System Tech Specs Column -->
+            <div class="col-md-7 mb-4">
+                <div class="premium-card p-4 h-100">
+                    <h5 class="card-section-title"><i class="fa-solid fa-cubes text-primary"></i> System Tech Stack & Specs</h5>
+                    <p class="text-sm text-muted">A modular, responsive, data-driven MVC system structured on the .NET 9.0 SDK ecosystem.</p>
+                    
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="fw-bold text-slate">ASP.NET Core MVC 9.0</span>
+                            <span class="text-primary text-xs fw-bold">Framework core</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 6px; background-color: #f1f5f9;">
+                            <div class="progress-bar" role="progressbar" style="width: 100%; background: var(--gradient-primary);" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="fw-bold text-slate">Entity Framework Core & SQL Server</span>
+                            <span class="text-primary text-xs fw-bold">Persistence & ORM</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 6px; background-color: #f1f5f9;">
+                            <div class="progress-bar" role="progressbar" style="width: 100%; background: var(--gradient-primary);" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="fw-bold text-slate">HTML5, CSS3 Custom Variables & JS</span>
+                            <span class="text-primary text-xs fw-bold">Front-End styling</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 6px; background-color: #f1f5f9;">
+                            <div class="progress-bar" role="progressbar" style="width: 100%; background: var(--gradient-primary);" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="fw-bold text-slate">Chart.js Integration</span>
+                            <span class="text-primary text-xs fw-bold">Real-time Analytics</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 6px; background-color: #f1f5f9;">
+                            <div class="progress-bar" role="progressbar" style="width: 100%; background: var(--gradient-primary);" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 rounded" style="background-color: #f8fafc; border-left: 3px solid var(--color-primary);">
+                        <h6 class="fw-bold text-slate mb-2"><i class="fa-solid fa-gears me-1 text-primary"></i> Architectural Specs</h6>
+                        <ul class="text-xs text-muted mb-0 ps-3">
+                            <li class="mb-1"><strong>Auto Database Setup:</strong> Verifies SQL Server connection and dynamically seeds data on initial boot.</li>
+                            <li class="mb-1"><strong>Theme State Persistence:</strong> Light theme memory is saved inside the user local storage data cache.</li>
+                            <li class="mb-1"><strong>Mobile First Grids:</strong> Built with responsive grid breakpoints scaling down smoothly to smartphone viewports.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implemented Features Highlights -->
+            <div class="col-md-5 mb-4">
+                <div class="premium-card p-4 h-100">
+                    <h5 class="card-section-title"><i class="fa-solid fa-circle-check text-primary"></i> Implemented Features</h5>
+                    <p class="text-sm text-muted">Core operational modules built into the portal:</p>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="feature-icon-wrapper rounded-circle d-flex align-items-center justify-content-center bg-light text-primary" style="width: 40px; height: 40px; border: 1px solid var(--border-color); flex-shrink: 0;">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-slate mb-1">Patient History Cards</h6>
+                            <p class="text-xs text-muted mb-0">Unified demographics CRUD with detailed profile tabs linking prescriptions, past billing invoices, and appointments history.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="feature-icon-wrapper rounded-circle d-flex align-items-center justify-content-center bg-light text-primary" style="width: 40px; height: 40px; border: 1px solid var(--border-color); flex-shrink: 0;">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-slate mb-1">Dynamic Appointment Picker</h6>
+                            <p class="text-xs text-muted mb-0">Cross-references weekly doctor shift hours against active bookings in database to render available hours dynamically via AJAX.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="feature-icon-wrapper rounded-circle d-flex align-items-center justify-content-center bg-light text-primary" style="width: 40px; height: 40px; border: 1px solid var(--border-color); flex-shrink: 0;">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-slate mb-1">Billing Auto-Invoicing</h6>
+                            <p class="text-xs text-muted mb-0">Generates billing details automatically after medical diagnosis records are filed, tracking outstanding balances.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <div class="feature-icon-wrapper rounded-circle d-flex align-items-center justify-content-center bg-light text-primary" style="width: 40px; height: 40px; border: 1px solid var(--border-color); flex-shrink: 0;">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-slate mb-1">Analytics Reporting Dashboard</h6>
+                            <p class="text-xs text-muted mb-0">Aggregated clinical and financial data visual charts showing department workloads, genders, and earnings lines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

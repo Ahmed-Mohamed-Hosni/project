@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Track Booking";
+}
+
+<div class="row justify-content-center py-5">
+    <div class="col-md-6 text-center">
+        <span class="badge-custom badge-custom-primary mb-3">
+            <i class="bi bi-search"></i> Appointment Lookup
+        </span>
+        <h1 class="text-white mb-2">Track Your Booking</h1>
+        <p class="text-secondary mb-5">Enter your booking code to view details, verify status, or cancel your appointment.</p>
+        
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger bg-danger bg-opacity-10 border-danger text-danger rounded-3 mb-4 text-start animate-fade-in" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> @ViewBag.ErrorMessage
+            </div>
+        }
+        
+        <div class="glass-panel text-start p-4">
+            <form asp-controller="Booking" asp-action="Track" method="get">
+                <div class="mb-4">
+                    <label for="code" class="form-label text-white fw-semibold">Booking Reference Code</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-input text-secondary" style="border-color: var(--border-color);"><i class="bi bi-hash"></i></span>
+                        <input type="text" class="form-control form-control-custom form-control-lg" id="code" name="code" placeholder="BK-123456" required autofocus />
+                    </div>
+                    <div class="form-text text-muted mt-2">
+                        Your booking code can be found in your booking confirmation page or invoice (Format: BK-XXXXXX).
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-custom btn-custom-primary btn-lg w-100">
+                    <i class="bi bi-search me-1"></i> Look Up Booking
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

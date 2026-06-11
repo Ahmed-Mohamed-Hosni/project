@@ -1,0 +1,85 @@
+@model HospitalManagementSystem.Models.MedicalRecord
+@{
+    ViewData["Title"] = "Clinical Diagnosis Record";
+    var app = ViewBag.Appointment as HospitalManagementSystem.Models.Appointment;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="premium-card p-5">
+            <div class="mb-4">
+                <h4 class="font-weight-bold text-primary"><i class="fa-solid fa-stethoscope me-2"></i> Clinical Record & Prescription</h4>
+                <p class="text-muted">Document patient diagnoses, medical treatment steps, and prescribed drugs to finalize consultation.</p>
+            </div>
+
+            <!-- Patient details banner -->
+            @if (app != null)
+            {
+                <div class="premium-card p-3 mb-4 d-flex justify-content-between align-items-center" style="background-color: #f8fafc;">
+                    <div>
+                        <div class="text-xs text-muted fw-bold">PATIENT</div>
+                        <div class="fw-bold text-slate">@app.Patient?.Name</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-muted fw-bold">CONSULTING DOCTOR</div>
+                        <div class="fw-bold text-primary">@app.Doctor?.Name</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-muted fw-bold">DATE</div>
+                        <div class="fw-bold text-slate">@app.AppointmentDate.ToString("MMMM dd, yyyy")</div>
+                    </div>
+                </div>
+            }
+
+            <form asp-action="CreateRecord" asp-route-appointmentId="@(app?.Id ?? 0)" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="PatientId" />
+                <input type="hidden" asp-for="DoctorId" />
+
+                <div class="row g-3">
+                    <!-- Diagnosis -->
+                    <div class="col-12">
+                        <label asp-for="Diagnosis" class="form-label form-label-custom">Clinical Diagnosis</label>
+                        <input asp-for="Diagnosis" class="form-control form-glass" 
+                               placeholder="e.g., Acute Pharyngitis, Type II Diabetes Mellitus" required />
+                        <span asp-validation-for="Diagnosis" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Treatment -->
+                    <div class="col-12">
+                        <label asp-for="Treatment" class="form-label form-label-custom">Treatment Plan & Directives</label>
+                        <textarea asp-for="Treatment" class="form-control form-glass" rows="4" 
+                                  placeholder="List medical directives, recommended therapy, lifestyle adjustments..." required></textarea>
+                        <span asp-validation-for="Treatment" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Prescribed Medications -->
+                    <div class="col-12">
+                        <label asp-for="PrescribedMedications" class="form-label form-label-custom">Prescribed Medications & Dosage</label>
+                        <input asp-for="PrescribedMedications" class="form-control form-glass" 
+                               placeholder="e.g., Amoxicillin 500mg 3x daily (7 days), Metformin 850mg 2x daily" />
+                        <span asp-validation-for="PrescribedMedications" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Extra Notes -->
+                    <div class="col-12">
+                        <label asp-for="Notes" class="form-label form-label-custom">Consultation Notes (Optional)</label>
+                        <textarea asp-for="Notes" class="form-control form-glass" rows="2" 
+                                  placeholder="Any extra observation comments, follow-up timelines..."></textarea>
+                        <span asp-validation-for="Notes" class="text-danger text-xs"></span>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-12 text-end mt-4">
+                        <a asp-action="Index" class="btn btn-outline-glass me-2">Cancel</a>
+                        <button type="submit" class="btn-grad"><i class="fa-solid fa-file-medical me-1"></i> Save Record & Complete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

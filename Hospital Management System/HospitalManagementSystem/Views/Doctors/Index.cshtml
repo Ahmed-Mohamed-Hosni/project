@@ -1,0 +1,87 @@
+@model IEnumerable<HospitalManagementSystem.Models.Doctor>
+@{
+    ViewData["Title"] = "Medical Staff Directory";
+}
+
+<div class="premium-card p-4 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <h4 class="mb-1 text-primary fw-bold">Medical Staff Directory</h4>
+            <p class="text-muted mb-0">Browse specialized medical practitioners, consulting shifts, and credentials.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a asp-action="Create" class="btn-grad"><i class="fa-solid fa-user-plus"></i> Add New Doctor</a>
+        </div>
+    </div>
+</div>
+
+<!-- Specialization Filtering Tabs -->
+<div class="premium-card p-3 mb-4 d-flex gap-2 overflow-x-auto">
+    <a asp-action="Index" class="btn btn-sm @(string.IsNullOrEmpty(ViewBag.SelectedSpecialty) ? "btn-grad" : "btn-outline-glass") py-2 px-3">
+        All Specialties
+    </a>
+    @if (ViewBag.Specialties != null)
+    {
+        foreach (var specialty in ViewBag.Specialties)
+        {
+            <a asp-action="Index" asp-route-specialty="@specialty" 
+               class="btn btn-sm @(ViewBag.SelectedSpecialty == specialty ? "btn-grad" : "btn-outline-glass") py-2 px-3">
+                @specialty
+            </a>
+        }
+    }
+</div>
+
+<!-- Doctor Cards Grid -->
+<div class="row">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var doctor in Model)
+        {
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="premium-card doctor-card h-100 hover-scale">
+                    <!-- Avatar with Bulletproof Fallback -->
+                    <div class="doctor-avatar-container d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 84px; height: 84px; overflow: hidden; border-radius: 50%;">
+                        <img src="@doctor.ProfilePictureUrl" alt="@doctor.Name" class="doctor-avatar" 
+                             style="width: 100%; height: 100%; object-fit: cover;"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="avatar-fallback fw-bold text-white align-items-center justify-content-center" 
+                             style="display: none; width: 100%; height: 100%; background: var(--gradient-primary); font-size: 1.8rem; border-radius: 50%;">
+                            @doctor.Name.Replace("Dr. ", "").Substring(0, 1).ToUpper()
+                        </div>
+                    </div>
+
+                    <!-- Specialty & Info -->
+                    <h5 class="fw-bold mb-1 text-slate text-truncate" title="@doctor.Name">@doctor.Name</h5>
+                    <div class="doctor-specialty mb-2">@doctor.Specialization</div>
+                    
+                    <p class="text-xs text-muted mb-3" style="height: 54px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size: 0.75rem;">
+                        @doctor.Biography
+                    </p>
+
+                    <hr style="border-color: var(--border-color);" />
+
+                    <div class="text-xs text-start mb-3" style="font-size: 0.75rem;">
+                        <div class="mb-1 text-muted"><i class="fa-solid fa-phone text-primary me-2"></i>@doctor.Phone</div>
+                        <div class="text-muted text-truncate"><i class="fa-solid fa-envelope me-2"></i>@doctor.Email</div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a asp-action="Edit" asp-route-id="@doctor.Id" class="btn btn-outline-glass btn-sm w-100"><i class="fa-solid fa-user-pen"></i> Edit</a>
+                        <a asp-controller="Schedules" asp-action="Index" class="btn btn-outline-glass btn-sm w-100" title="Check Shifts"><i class="fa-solid fa-clock text-primary"></i> Shifts</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12">
+            <div class="premium-card p-5 text-center text-muted">
+                <i class="fa-solid fa-user-slash fa-2x mb-3 text-primary"></i>
+                <div>No doctors registered under this specialization yet.</div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,317 @@
+@model IEnumerable<InventoryManagementSystem.Models.Product>
+
+@{
+    ViewData["Title"] = "POS Terminal";
+    var categories = ViewData["Categories"] as IEnumerable<InventoryManagementSystem.Models.Category>;
+}
+
+<div class="content-header">
+    <div class="page-title-area">
+        <h1>POS Terminal</h1>
+        <p>Sell products, calculate subtotals, and issue billing receipts instantly</p>
+    </div>
+    <div class="header-actions">
+        <a asp-action="Index" class="btn-premium-secondary">
+            <i class="bi bi-receipt"></i> Sales History
+        </a>
+    </div>
+</div>
+
+<div class="pos-layout animate-fade-in">
+    <!-- Left Column: Product Selection Grid -->
+    <div class="d-flex flex-column gap-3">
+        <!-- Search and Quick Category Filter Tabs -->
+        <div class="premium-panel">
+            <div class="search-wrapper-premium mb-3">
+                <i class="bi bi-search"></i>
+                <input type="text" id="posSearch" class="form-input-premium" placeholder="Search by SKU or name..." onkeyup="filterPOSProducts()" />
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="d-flex gap-2 flex-wrap" id="categoryTabs">
+                <button class="btn-premium py-1 px-3" onclick="filterCategory(0, this)">All</button>
+                @if (categories != null)
+                {
+                    @foreach (var cat in categories)
+                    {
+                        <button class="btn-premium-secondary py-1 px-3" onclick="filterCategory(@cat.Id, this)">@cat.Name</button>
+                    }
+                }
+            </div>
+        </div>
+
+        <!-- Scrollable Products Grid -->
+        <div class="premium-panel flex-grow-1" style="min-height: 400px;">
+            <div class="panel-header">
+                <div class="panel-title"><i class="bi bi-grid-3x3-gap"></i> Available Products</div>
+            </div>
+            
+            <div class="product-picker-grid" id="posProductsGrid">
+                @foreach (var prod in Model)
+                {
+                    <div class="pos-product-card" data-id="@prod.Id" data-sku="@prod.SKU" data-name="@prod.Name" data-price="@prod.Price" data-stock="@prod.StockQuantity" data-cat="@prod.CategoryId" onclick="addToCart(@prod.Id)">
+                        <div>
+                            <div class="pos-product-name text-start">@prod.Name</div>
+                            <div class="pos-product-sku text-start">SKU: @prod.SKU</div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="pos-product-price">$@prod.Price.ToString("F2")</span>
+                            <span class="pos-product-qty badge bg-light text-dark border">Qty: <strong class="stock-display">@prod.StockQuantity</strong></span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Shopping Cart and Checkout -->
+    <div class="premium-panel d-flex flex-column justify-content-between" style="min-height: 550px;">
+        <div>
+            <div class="panel-header">
+                <div class="panel-title"><i class="bi bi-cart3"></i> Shopping Cart</div>
+                <button class="btn-premium-danger py-1 px-2 text-white" style="font-size: 0.8rem;" onclick="clearCart()">
+                    <i class="bi bi-trash"></i> Clear
+                </button>
+            </div>
+
+            <!-- Customer Details -->
+            <div class="row mb-3">
+                <div class="col">
+                    <input type="text" id="customerName" class="form-input-premium py-2" placeholder="Customer Name (Walk-in)" />
+                </div>
+                <div class="col">
+                    <input type="text" id="customerPhone" class="form-input-premium py-2" placeholder="Customer Phone" />
+                </div>
+            </div>
+
+            <!-- Cart Items Container -->
+            <div class="cart-items-list" id="cartItemsList">
+                <div class="text-center text-muted py-5" id="emptyCartMessage">
+                    <i class="bi bi-cart-x" style="font-size: 2.5rem; display: block; margin-bottom: 8px;"></i>
+                    Your shopping cart is empty
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Summaries -->
+        <div class="pos-summary">
+            <div class="summary-row">
+                <span>Items Count</span>
+                <span id="summaryCount">0</span>
+            </div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="summarySubtotal">$0.00</span>
+            </div>
+            <div class="summary-row total">
+                <span>Grand Total</span>
+                <span id="summaryTotal">$0.00</span>
+            </div>
+            
+            <button class="btn-premium w-100 justify-content-center py-3 mt-3" style="font-size: 1.05rem;" id="checkoutBtn" onclick="checkoutCart()" disabled>
+                <i class="bi bi-credit-card-fill"></i> Complete Checkout
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let cart = [];
+        let selectedCategoryId = 0;
+
+        function filterPOSProducts() {
+            let search = document.getElementById('posSearch').value.toLowerCase();
+            let cards = document.querySelectorAll('.pos-product-card');
+
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name').toLowerCase();
+                let sku = card.getAttribute('data-sku').toLowerCase();
+                let catId = parseInt(card.getAttribute('data-cat'));
+
+                let matchesSearch = name.includes(search) || sku.includes(search);
+                let matchesCategory = selectedCategoryId === 0 || catId === selectedCategoryId;
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCategory(catId, btn) {
+            // Update active state in tabs
+            let tabs = document.querySelectorAll('#categoryTabs button');
+            tabs.forEach(tab => {
+                tab.className = 'btn-premium-secondary py-1 px-3';
+            });
+            btn.className = 'btn-premium py-1 px-3';
+
+            selectedCategoryId = catId;
+            filterPOSProducts();
+        }
+
+        function addToCart(productId) {
+            let card = document.querySelector(`.pos-product-card[data-id="${productId}"]`);
+            let name = card.getAttribute('data-name');
+            let price = parseFloat(card.getAttribute('data-price']);
+            let maxStock = parseInt(card.getAttribute('data-stock'));
+
+            let cartItem = cart.find(item => item.productId === productId);
+
+            if (cartItem) {
+                if (cartItem.quantity < maxStock) {
+                    cartItem.quantity++;
+                } else {
+                    alert(`Cannot add more units. Only ${maxStock} in stock.`);
+                    return;
+                }
+            } else {
+                if (maxStock > 0) {
+                    cart.push({
+                        productId: productId,
+                        name: name,
+                        price: price,
+                        quantity: 1,
+                        maxStock: maxStock
+                    });
+                } else {
+                    alert("This item is currently out of stock.");
+                    return;
+                }
+            }
+
+            renderCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.productId !== productId);
+            renderCart();
+        }
+
+        function changeQty(productId, delta) {
+            let cartItem = cart.find(item => item.productId === productId);
+            if (!cartItem) return;
+
+            let newQty = cartItem.quantity + delta;
+
+            if (newQty <= 0) {
+                removeFromCart(productId);
+            } else if (newQty <= cartItem.maxStock) {
+                cartItem.quantity = newQty;
+                renderCart();
+            } else {
+                alert(`Cannot add more units. Only ${cartItem.maxStock} in stock.`);
+            }
+        }
+
+        function clearCart() {
+            if (confirm("Are you sure you want to clear the shopping cart?")) {
+                cart = [];
+                renderCart();
+            }
+        }
+
+        function renderCart() {
+            let cartList = document.getElementById('cartItemsList');
+            let emptyMsg = document.getElementById('emptyCartMessage');
+            let checkoutBtn = document.getElementById('checkoutBtn');
+
+            // Clear previous render except empty message
+            cartList.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartList.appendChild(emptyMsg);
+                checkoutBtn.disabled = true;
+                updateSummary(0, 0);
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+
+            let totalCount = 0;
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                totalCount += item.quantity;
+                let itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+
+                let row = document.createElement('div');
+                row.className = 'cart-item';
+                row.innerHTML = `
+                    <div class="cart-item-name">
+                        <div>${item.name}</div>
+                        <small class="text-muted">$${item.price.toFixed(2)} each</small>
+                    </div>
+                    <div class="cart-item-price">$${itemTotal.toFixed(2)}</div>
+                    <div class="cart-item-controls">
+                        <button class="cart-qty-btn" onclick="changeQty(${item.productId}, -1)">-</button>
+                        <strong style="width: 25px; text-align: center; display: inline-block;">${item.quantity}</strong>
+                        <button class="cart-qty-btn" onclick="changeQty(${item.productId}, 1)">+</button>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${item.productId})">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                `;
+                cartList.appendChild(row);
+            });
+
+            updateSummary(totalCount, subtotal);
+        }
+
+        function updateSummary(count, subtotal) {
+            document.getElementById('summaryCount').innerText = count;
+            document.getElementById('summarySubtotal').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('summaryTotal').innerText = `$${subtotal.toFixed(2)}`;
+        }
+
+        function checkoutCart() {
+            if (cart.length === 0) return;
+
+            let name = document.getElementById('customerName').value;
+            let phone = document.getElementById('customerPhone').value;
+            let btn = document.getElementById('checkoutBtn');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Processing Checkout...';
+
+            let requestPayload = {
+                CustomerName: name,
+                CustomerPhone: phone,
+                Items: cart.map(item => {
+                    return {
+                        ProductId: item.productId,
+                        Quantity: item.quantity
+                    };
+                })
+            };
+
+            fetch('/Sale/Checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestPayload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Checkout successful! Invoice ${data.invoiceNumber} created.`);
+                    window.location.href = `/Sale/Details/${data.saleId}`;
+                } else {
+                    alert(`Checkout Error: ${data.message}`);
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-credit-card-fill"></i> Complete Checkout';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("An unexpected error occurred during connection.");
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-credit-card-fill"></i> Complete Checkout';
+            });
+        }
+    </script>
+}

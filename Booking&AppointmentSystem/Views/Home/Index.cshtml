@@ -1,0 +1,193 @@
+@{
+    ViewData["Title"] = "Home Page";
+    var categories = ViewBag.Categories as List<Category> ?? new List<Category>();
+    var services = ViewBag.Services as List<Service> ?? new List<Service>();
+    var providers = ViewBag.Providers as List<Provider> ?? new List<Provider>();
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-glow"></div>
+    <div class="container position-relative" style="z-index: 1;">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <span class="badge-custom badge-custom-primary mb-3">
+                    <i class="bi bi-patch-check-fill"></i> Streamlined Booking System
+                </span>
+                <h1 class="hero-title">
+                    Effortless bookings for <span>Any Service</span>, anytime
+                </h1>
+                <p class="lead text-secondary mb-4 mx-auto" style="max-width: 600px;">
+                    Whether it's a medical checkup, salon session, or corporate coaching, find the perfect provider and reserve your slot in seconds.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a asp-controller="Booking" asp-action="Book" class="btn btn-custom btn-custom-primary btn-lg">
+                        <i class="bi bi-calendar-check me-2"></i> Book Appointment Now
+                    </a>
+                    <a href="#track-booking-card" class="btn btn-custom btn-custom-secondary btn-lg">
+                        <i class="bi bi-search me-2"></i> Track Appointment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories List -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="h3 mb-5 text-white">Select a Category to Start</h2>
+        <div class="row justify-content-center g-4">
+            @foreach (var cat in categories)
+            {
+                <div class="col-6 col-sm-4 col-md-3">
+                    <a asp-controller="Booking" asp-action="Book" asp-route-categoryId="@cat.Id" class="text-decoration-none">
+                        <div class="cat-circle-card">
+                            <div class="cat-circle-icon">
+                                <i class="bi bi-@cat.Icon"></i>
+                            </div>
+                            <span>@cat.Name</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Services Panel & Booking Code Lookup -->
+<section class="py-5">
+    <div class="row g-4">
+        <!-- Featured Services -->
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h4 text-white mb-0"><i class="bi bi-star-fill text-warning me-2"></i> Featured Services</h2>
+                <a asp-controller="Booking" asp-action="Book" class="text-primary fw-semibold" style="font-size: 0.95rem;">
+                    See All <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="row g-4">
+                @foreach (var srv in services)
+                {
+                    <div class="col-md-6">
+                        <div class="glass-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <span class="badge-custom badge-custom-primary mb-2" style="font-size: 0.75rem;">
+                                        @srv.Category?.Name
+                                    </span>
+                                    <h3 class="h5 text-white mb-1">@srv.Name</h3>
+                                </div>
+                                <div class="text-end">
+                                    <span class="fs-4 fw-bold text-white">$@srv.Price.ToString("0.00")</span>
+                                </div>
+                            </div>
+                            <p class="text-secondary small mb-4" style="height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                @srv.Description
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center pt-2" style="border-top: 1px solid var(--border-color);">
+                                <span class="text-muted small"><i class="bi bi-clock me-1"></i> @srv.DurationMinutes mins</span>
+                                <a asp-controller="Booking" asp-action="Book" asp-route-serviceId="@srv.Id" class="btn btn-sm btn-custom btn-custom-primary py-1 px-3" style="font-size: 0.8rem;">
+                                    Book Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Appointment Tracker Form -->
+        <div class="col-lg-4" id="track-booking-card">
+            <h2 class="h4 text-white mb-4"><i class="bi bi-search text-primary me-2"></i> Track Appointment</h2>
+            <div class="glass-panel">
+                <p class="text-secondary small mb-4">
+                    Enter the unique booking reference code (e.g. <code>BK-XXXXXX</code>) supplied during booking confirmation to view status, schedule details, or cancel the appointment.
+                </p>
+                <form asp-controller="Booking" asp-action="Track" method="get">
+                    <div class="mb-3">
+                        <label for="bookingCodeInput" class="form-label text-white fw-semibold small">Booking Reference Code</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-input text-secondary" style="border-color: var(--border-color);"><i class="bi bi-hash"></i></span>
+                            <input type="text" class="form-control form-control-custom" id="bookingCodeInput" name="code" placeholder="BK-123456" required />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-custom btn-custom-secondary w-100 mt-2">
+                        <i class="bi bi-search me-1"></i> Look Up Booking
+                    </button>
+                </form>
+                
+                <hr class="my-4" style="border-color: var(--border-color);" />
+                
+                <!-- Developer Credit Banner -->
+                <div class="text-center">
+                    <p class="text-muted small mb-2">Systems Developer</p>
+                    <div class="rounded-3 p-3" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color);">
+                        <h6 class="text-white fw-bold mb-1">Ahmed Mohamed Hosni</h6>
+                        <span class="small text-secondary">أحمد محمد حسني</span>
+                        <a asp-controller="Home" asp-action="Developer" class="btn btn-sm btn-custom btn-custom-primary w-100 py-1 mt-3" style="font-size: 0.75rem;">
+                            <i class="bi bi-person-badge me-1"></i> Developer CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Providers Showcase -->
+<section class="py-5 mb-4">
+    <div class="text-center mb-5">
+        <h2 class="h3 text-white">Our Top Rated Specialists</h2>
+        <p class="text-secondary">Highly skilled professionals dedicated to providing you the best experience.</p>
+    </div>
+    
+    <div class="row g-4">
+        @foreach (var prov in providers)
+        {
+            <div class="col-md-4">
+                <div class="glass-card text-center d-flex flex-column align-items-center">
+                    <!-- Custom provider profile circle -->
+                    <div class="position-relative mb-3">
+                        <div class="rounded-circle bg-secondary p-1" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); width: 90px; height: 90px;">
+                            <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center" style="width: 82px; height: 82px;">
+                                <span class="fs-3 fw-bold text-secondary">
+                                    @(prov.Name.Split(' ').Length > 1 ? string.Concat(prov.Name.Split(' ')[0][0], prov.Name.Split(' ')[1][0]) : prov.Name[0].ToString())
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="h5 text-white mb-1">@prov.Name</h3>
+                    <span class="badge-custom badge-custom-primary mb-3" style="font-size: 0.75rem;">
+                        @prov.Title
+                    </span>
+                    
+                    <div class="rating-stars mb-3">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= Math.Round(prov.Rating))
+                            {
+                                <i class="bi bi-star-fill"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-star"></i>
+                            }
+                        }
+                        <span class="text-muted ms-2" style="font-size: 0.8rem;">(@prov.Rating.ToString("0.0"))</span>
+                    </div>
+                    
+                    <p class="text-secondary small mb-3 text-center" style="height: 54px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                        @prov.Bio
+                    </p>
+                    
+                    <a asp-controller="Booking" asp-action="Book" asp-route-providerId="@prov.Id" class="btn btn-sm btn-custom btn-custom-secondary w-100 py-2 mt-auto">
+                        View Schedule
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</section>

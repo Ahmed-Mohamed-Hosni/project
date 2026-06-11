@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookWise</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/_4._Booking_AppointmentSystem.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container">
+                <a class="navbar-brand navbar-brand-custom" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-calendar-event text-primary"></i>
+                    <span>BookWise</span>
+                </a>
+                
+                <!-- Developer Badge -->
+                <div class="d-none d-sm-inline-flex ms-2">
+                    <a asp-controller="Home" asp-action="Developer" class="text-decoration-none">
+                        <span class="dev-badge">
+                            <i class="bi bi-shield-check"></i>
+                            Ahmed Mohamed Hosni
+                        </span>
+                    </a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door me-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom" asp-controller="Booking" asp-action="Track">
+                                <i class="bi bi-search me-1"></i> Track Booking
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom" asp-controller="Admin" asp-action="Dashboard">
+                                <i class="bi bi-speedometer2 me-1"></i> Admin Panel
+                            </a>
+                        </li>
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <a class="nav-link nav-link-primary text-center" asp-controller="Booking" asp-action="Book">
+                                <i class="bi bi-calendar-plus me-1"></i> Book Now
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="flex-shrink-0 my-5">
+        <div class="container animate-fade-in">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-5">
+                    <div class="navbar-brand-custom mb-3">
+                        <i class="bi bi-calendar-event text-primary"></i>
+                        <span>BookWise</span>
+                    </div>
+                    <p class="text-secondary mb-3" style="max-width: 380px;">
+                        A state-of-the-art service booking and appointment platform designed for medical clinics, beauty salons, and professional consultations.
+                    </p>
+                    <div class="d-inline-flex align-items-center gap-2">
+                        <span class="text-muted">Developed with ❤️ by</span>
+                        <a asp-controller="Home" asp-action="Developer" class="text-decoration-none fw-semibold text-primary">
+                            Ahmed Mohamed Hosni
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 ms-auto">
+                    <h6 class="text-white mb-3">System Navigation</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2">
+                        <li><a asp-controller="Home" asp-action="Index" class="text-secondary"><i class="bi bi-chevron-right me-1 text-primary"></i> Home Page</a></li>
+                        <li><a asp-controller="Booking" asp-action="Book" class="text-secondary"><i class="bi bi-chevron-right me-1 text-primary"></i> Book Appointment</a></li>
+                        <li><a asp-controller="Booking" asp-action="Track" class="text-secondary"><i class="bi bi-chevron-right me-1 text-primary"></i> Track Booking</a></li>
+                        <li><a asp-controller="Admin" asp-action="Dashboard" class="text-secondary"><i class="bi bi-chevron-right me-1 text-primary"></i> Admin Dashboard</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-3">
+                    <h6 class="text-white mb-3">Developer Profile</h6>
+                    <div class="glass-panel p-3 text-center rounded-3" style="background: rgba(255,255,255,0.02);">
+                        <p class="text-white fw-bold mb-1" style="font-size: 0.95rem;">أحمد محمد حسني</p>
+                        <p class="text-muted mb-2" style="font-size: 0.8rem;">Full Stack Developer</p>
+                        <a asp-controller="Home" asp-action="Developer" class="btn btn-sm btn-custom btn-custom-primary w-100 py-1" style="font-size: 0.8rem;">
+                            View Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4" style="border-color: var(--border-color);" />
+            
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+                <div class="text-muted text-center text-sm-start">
+                    &copy; 2026 BookWise Portal. All rights reserved.
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-muted"><i class="bi bi-github" style="font-size: 1.2rem;"></i></a>
+                    <a href="#" class="text-muted"><i class="bi bi-linkedin" style="font-size: 1.2rem;"></i></a>
+                    <a href="#" class="text-muted"><i class="bi bi-envelope-fill" style="font-size: 1.2rem;"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap & jQuery Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom site JS -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

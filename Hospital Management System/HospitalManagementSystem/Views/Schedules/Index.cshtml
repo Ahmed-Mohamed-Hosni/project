@@ -1,0 +1,79 @@
+@model IEnumerable<HospitalManagementSystem.Models.DoctorSchedule>
+@{
+    ViewData["Title"] = "Doctor Consulting Shifts";
+}
+
+<div class="premium-card p-4 mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <h4 class="mb-1 text-primary fw-bold">Doctor Consulting Shifts</h4>
+            <p class="text-muted mb-0">Configure consulting days, hour windows, and appointment durations for practitioners.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a asp-action="Create" class="btn-grad"><i class="fa-solid fa-clock-rotate-left"></i> Add Work Shift</a>
+        </div>
+    </div>
+</div>
+
+<div class="premium-card p-4">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Medical Specialty</th>
+                    <th>Working Day</th>
+                    <th>Hours Window</th>
+                    <th>Slot Interval</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var schedule in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-bold">@schedule.Doctor?.Name</div>
+                                <div class="text-xs text-muted">ID: #D-@schedule.DoctorId.ToString("D3")</div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light border text-dark">@schedule.Doctor?.Specialization</span>
+                            </td>
+                            <td>
+                                <span class="fw-bold text-primary"><i class="fa-solid fa-calendar-day me-1"></i> @schedule.DayOfWeek.ToString()</span>
+                            </td>
+                            <td>
+                                <div>
+                                    <i class="fa-regular fa-clock me-1 text-muted"></i>
+                                    @schedule.StartTime.ToString(@"hh\:mm") - @schedule.EndTime.ToString(@"hh\:mm")
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold text-slate">@schedule.SlotDurationMinutes Mins</span>
+                            </td>
+                            <td class="text-end">
+                                <form asp-action="Delete" asp-route-id="@schedule.Id" method="post" 
+                                      onsubmit="return confirm('Are you sure you want to remove this consulting shift?');">
+                                    <button type="submit" class="btn btn-outline-glass btn-sm text-danger" title="Delete Shift">
+                                        <i class="fa-solid fa-trash-can"></i> Remove
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-calendar-minus fa-2x mb-3 text-primary"></i>
+                            <div>No doctors work shifts configured.</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
